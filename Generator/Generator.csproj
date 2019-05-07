@@ -51,6 +51,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GUI\ISmartNavItemContext.cs" />
+    <Compile Include="GUI\NavMenuItem.cs" />
+    <Compile Include="GUI\Pattern.cs" />
+    <Compile Include="GUI\PatternGroup.cs" />
+    <Compile Include="GUI\PatternGroupMaster.cs" />
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
