@@ -5,8 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Generator"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="500" Title="Generator">
+             Background="White" Width="880" Height="720" MinHeight="720" 
+             MinWidth="720" Title="Generator">
     <Grid>
-            
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Uid="RowDefinition_2" Width="200"/>
+                <ColumnDefinition x:Uid="RowDefinition_3" Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" SnapsToDevicePixels="True" Background ="LightGray"  Name="MainMenuBorder">
+                <StackPanel Orientation="Vertical" >
+                    <Menu Margin="0,0,0,5" Background="LightGray">
+                        <MenuItem Header="Creational patterns" FlowDirection="RightToLeft">
+                            <MenuItem Header="Abstract factory" IsCheckable="true"/>
+                            <MenuItem Header="Builder" IsCheckable="true" />
+                            <MenuItem Header="Factory method" IsCheckable="true" />
+                            <MenuItem Header="Prototype" IsCheckable="true" />
+                            <MenuItem Header="Singleton" IsCheckable="true" />
+                        </MenuItem>
+                    </Menu>
+                    
+                    <Menu Margin="0,0,0,5" Background="LightGray">
+                        <MenuItem Header="Structural patterns">
+                        </MenuItem>
+                    </Menu>
+                    
+                    <Menu Margin="0,0,0,5" Background="LightGray">
+                        <MenuItem Header="Behavioral patterns">
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
