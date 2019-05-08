@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,5 +25,20 @@ namespace Generator
         {
             InitializeComponent();
         }
+
+
+        #region Private Methods  
+
+        private void CreationalPatternsToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(sender is ToggleButton button)
+            {
+                if((bool) button.IsChecked)
+                    this.CreationalPatternsList.Visibility = Visibility.Visible;
+                else
+                    this.CreationalPatternsList.Visibility = Visibility.Collapsed;
+            }           
+        }
+        #endregion
     }
 }

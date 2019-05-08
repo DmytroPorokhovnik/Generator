@@ -51,7 +51,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="HomePage.xaml.cs">
+    <Compile Include="GUI\BoolToVisibilityConverter.cs" />
+    <Compile Include="GUI\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\ProjectNodeCommand.cs" />
@@ -99,7 +100,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="HomePage.xaml">
+    <Page Include="GUI\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
