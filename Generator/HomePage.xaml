@@ -8,34 +8,95 @@
              Background="White" Width="880" Height="720" MinHeight="720" 
              MinWidth="720" Title="Generator">
     <Grid>
+
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Uid="RowDefinition_2" Width="200"/>
-                <ColumnDefinition x:Uid="RowDefinition_3" Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            <!--Side Menu-->
             <Border Grid.Column="0" SnapsToDevicePixels="True" Background ="LightGray"  Name="MainMenuBorder">
-                <StackPanel Orientation="Vertical" >
-                    <Menu Margin="0,0,0,5" Background="LightGray">
-                        <MenuItem Header="Creational patterns" FlowDirection="RightToLeft">
-                            <MenuItem Header="Abstract factory" IsCheckable="true"/>
-                            <MenuItem Header="Builder" IsCheckable="true" />
-                            <MenuItem Header="Factory method" IsCheckable="true" />
-                            <MenuItem Header="Prototype" IsCheckable="true" />
-                            <MenuItem Header="Singleton" IsCheckable="true" />
-                        </MenuItem>
-                    </Menu>
-                    
-                    <Menu Margin="0,0,0,5" Background="LightGray">
-                        <MenuItem Header="Structural patterns">
-                        </MenuItem>
-                    </Menu>
-                    
-                    <Menu Margin="0,0,0,5" Background="LightGray">
-                        <MenuItem Header="Behavioral patterns">
-                        </MenuItem>
-                    </Menu>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ToggleButton ClickMode="Press" Style="{DynamicResource ToggleButtonStyle}">
+                            </ToggleButton>
+                        </Border>
+                        <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock>Creational Patterns</TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Grid.Row="1" Margin="5,0,0,0" Orientation="Horizontal">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ToggleButton ClickMode="Press" Style="{DynamicResource ToggleButtonStyle}">
+                            </ToggleButton>
+                        </Border>
+                        <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock>Structural Patterns</TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Height="Auto" Grid.Row="2" Margin="5,0,0,0" Orientation="Horizontal">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ToggleButton ClickMode="Press" Style="{DynamicResource ToggleButtonStyle}">
+                            </ToggleButton>
+                        </Border>
+                        <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock>Behavioral Patterns</TextBlock>
+                        </Border>
+                    </StackPanel>
+                </Grid>
             </Border>
         </Grid>
+
+
+
+
     </Grid>
+
+
+    <!--RESOURCES STYLES-->
+
+    <Window.Resources>
+        <Style TargetType="ToggleButton" x:Key="ToggleButtonStyle">
+            <Style.Resources>
+                <ResourceDictionary/>
+            </Style.Resources>
+            <Setter Property="UIElement.Focusable" Value="False"/>
+            <Setter Property="FrameworkElement.Width" Value="18.0" />
+            <Setter Property="FrameworkElement.Height" Value="12.0" />
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Height="12" Width="19">
+                            <Border BorderBrush="#FF9495A2" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Height="9" SnapsToDevicePixels="True" Width="9">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Color="#FFFFFFFF" Offset="0.4"/>
+                                            <GradientStop Color="#FFC6CEDA" Offset="1"/>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Path Data="M0,2L0,3 2,3 2,5 3,5 3,3 5,3 5,2 3,2 3,0 2,0 2,2z" Fill="#FF000000" Margin="1,1,1,1" Name="ExpandPath"/>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Path.Data" TargetName="ExpandPath">
+                                    <Setter.Value>
+                                        <StreamGeometry>M0,2L0,3 5,3 5,2z</StreamGeometry>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 </Window>
