@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,54 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Generator
+namespace Generator.GUI
 {
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : Window
+    public partial class HomePage : Page
     {
         public HomePage()
         {
             InitializeComponent();
         }
-
-
-        #region Private Methods  
-
-        private void CreationalPatternsToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            if(sender is ToggleButton button)
-            {
-                if((bool) button.IsChecked)
-                    this.CreationalPatternsList.Visibility = Visibility.Visible;
-                else
-                    this.CreationalPatternsList.Visibility = Visibility.Collapsed;
-            }           
-        }
-
-        private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is ToggleButton button)
-            {
-                if ((bool)button.IsChecked)
-                    this.BehavioralPatternsList.Visibility = Visibility.Visible;
-                else
-                    this.BehavioralPatternsList.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void StructuralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is ToggleButton button)
-            {
-                if ((bool)button.IsChecked)
-                    this.StructuralPatternsList.Visibility = Visibility.Visible;
-                else
-                    this.StructuralPatternsList.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        #endregion        
     }
 }
