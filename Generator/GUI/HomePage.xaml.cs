@@ -39,6 +39,29 @@ namespace Generator
                     this.CreationalPatternsList.Visibility = Visibility.Collapsed;
             }           
         }
-        #endregion
+
+        private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ToggleButton button)
+            {
+                if ((bool)button.IsChecked)
+                    this.BehavioralPatternsList.Visibility = Visibility.Visible;
+                else
+                    this.BehavioralPatternsList.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void StructuralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ToggleButton button)
+            {
+                if ((bool)button.IsChecked)
+                    this.StructuralPatternsList.Visibility = Visibility.Visible;
+                else
+                    this.StructuralPatternsList.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        #endregion        
     }
 }
