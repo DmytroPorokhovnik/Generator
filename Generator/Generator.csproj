@@ -113,6 +113,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\Patterns\Behavioral\" />
     <Folder Include="Resources\Patterns\Creational\" />
     <Folder Include="Resources\Patterns\Structural\" />
   </ItemGroup>
