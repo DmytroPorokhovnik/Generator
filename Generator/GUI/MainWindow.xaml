@@ -151,7 +151,7 @@
             </Border>
             <!-- END Side Menu-->
             <Grid Grid.Column="1" Width="Auto" Height="Auto">
-                <Frame Source="HomePage.xaml"></Frame>
+                <Frame Visibility="Collapsed" Source="HomePage.xaml" Name="p_home"></Frame>
             </Grid>            
         </Grid>        
     </Grid>

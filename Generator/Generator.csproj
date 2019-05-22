@@ -51,8 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ExtensionDeb\ExtensionHelper.cs" />
+    <Compile Include="ExtensionDev\ExtensionHelper.cs" />
     <Compile Include="Generation\GOFPatternGenerator.cs" />
+    <Compile Include="Generation\Patterns.cs" />
     <Compile Include="GUI\BoolToVisibilityConverter.cs" />
     <Compile Include="GUI\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>

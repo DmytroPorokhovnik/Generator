@@ -10,9 +10,8 @@ namespace Generator.Generation
 {
     class GOFPatternGenerator
     {
-        private static string ResourceFolder = Directory.GetCurrentDirectory();
-
-        // creational Patterns
+        #region Public Methods
+        #region Creational Patterns
         public string AbstractFactory(string abstractFactoryClass, string abstractProductAClass, string abstractProductBClass, string productA1Class,
             string productA2, string ProductB1, string ProductB2, string ConcreteFactory1, string ConcreteFactory2, string client,
             string runMethod, string CreateProductA, string CreateProductB, string interact)
@@ -65,7 +64,9 @@ namespace Generator.Generation
             template = DeleteComments(template);
             return string.Format(template, singleton, instance);
         }
+        #endregion
 
+        #region Structural Patterns
         public string ObjectAdapter(string adapter, string target, string adaptee, string request, string specificRequest)
         {
             var template = Properties.Resources.ObjectAdapter;
@@ -145,6 +146,10 @@ namespace Generator.Generation
             return string.Format(template, composite, component, leaf, operation,
                 getChild);
         }
+
+        #endregion
+
+        #region Behavioral Patterns
 
         public string ChainOfResponsibility(string handler, string concreteHandler1, string concreteHandler2, string handleRequest,
             string successor)
@@ -237,7 +242,7 @@ namespace Generator.Generation
             return string.Format(template, state, context, concreteStateA, concreteStateB, handle, request);
         }
 
-        public string Strategy(string strategy, string concreteStrategyA, string concreteStrategyB, string concreteStrategyC, string context, 
+        public string Strategy(string strategy, string concreteStrategyA, string concreteStrategyB, string concreteStrategyC, string context,
             string algorithmInterface, string contextInterface)
         {
             var template = Properties.Resources.Strategy;
@@ -262,11 +267,81 @@ namespace Generator.Generation
                 concreteVisitor2, visitConcreteElementA, visitConcreteElementB, accept, operationA, operationB);
         }
 
-        public async void GeneratePattern(string pattern, string fileName, string path = "")
-        {           
+        #endregion
+
+        //public string Generate(Patterns pattern, string[] arguments)
+        //{
+        //    switch(pattern)
+        //    {
+        //        case Patterns.AbstractFactory:
+        //            return AbstractFactory(arguments);
+        //        case Patterns.Builder:
+        //            return Builder(arguments);
+        //        case Patterns.FactoryMethod:
+        //            return FactoryMethod(arguments);
+        //        case Patterns.Prototype:
+        //            return Prototype(arguments);
+        //        case Patterns.Singleton:
+        //            return Singleton(arguments);
+        //        case Patterns.MultiThreadedSingleton:
+        //            return MultiThreadedSingleton(arguments);
+        //        case Patterns.LazySingleton:
+        //            return LazySingleton(arguments);
+
+        //        case Patterns.ObjectAdapter:
+        //            return ObjectAdapter(arguments);
+        //        case Patterns.ClassAdapter:
+        //            return ClassAdapter(arguments);
+        //        case Patterns.Decorator:
+        //            return Decorator(arguments);
+        //        case Patterns.Facade:
+        //            return Facade(arguments);
+        //        case Patterns.Flyweight:
+        //            return Flyweight(arguments);
+        //        case Patterns.Proxy:
+        //            return Proxy(arguments);
+        //        case Patterns.ProxyAmbassador:
+        //            return ProxyAmbassador(arguments);
+        //        case Patterns.ProxyCrud:
+        //            return ProxyCrud(arguments);
+
+        //        case Patterns.ChainOfResponsibility:
+        //            return ChainOfResponsibility(arguments);
+        //        case Patterns.Iterator:
+        //            return Iterator(arguments);
+        //        case Patterns.IteratorNET:
+        //            return IteratorNET(arguments);
+        //        case Patterns.YieldIterator:
+        //            return YieldIterator(arguments);
+        //        case Patterns.Command:
+        //            return Command(arguments);
+        //        case Patterns.Mediator:
+        //            return Mediator(arguments);
+        //        case Patterns.Memento:
+        //            return Memento(arguments);
+        //        case Patterns.Observer:
+        //            return Observer(arguments);
+        //        case Patterns.ObserverEvent:
+        //            return ObserverEvent(arguments);
+        //        case Patterns.ObserverNET:
+        //            return ObserverNET(arguments);
+        //        case Patterns.State:
+        //            return State(arguments);
+        //        case Patterns.Strategy:
+        //            return Strategy(arguments);
+        //        case Patterns.Visitor:
+        //            return Visitor(arguments);
+        //        case Patterns.TemplateMethod:
+        //            return TemplateMethod(arguments);
+        //    }
+
+        //}
+
+        public async System.Threading.Tasks.Task GeneratePatternAsync(string pattern, string fileName, string path = "")
+        {
             if (string.IsNullOrEmpty(path))
                 path = getCurrentProjectPath();
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
                 VsShellUtilities.ShowMessageBox(
@@ -277,7 +352,7 @@ namespace Generator.Generation
                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
                 return;
-            }          
+            }
             using (FileStream fs = File.Create(Path.Combine(path, fileName)))
             {
                 var patternBytes = Encoding.ASCII.GetBytes(pattern);
@@ -287,26 +362,16 @@ namespace Generator.Generation
 
         public string getCurrentProjectPath()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            var proj = ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE);
-            if (proj == null)
-            {
-                //TODO:
-                return null;
-            }
-            else
-            {
-                var currentProject = (VSLangProj.VSProject)proj.Object;
-                return Path.GetDirectoryName(currentProject.Project.FileName);
-
-            }
+            return ExtensionHelper.GetCurrentProjectPath();
         }
+
+        #endregion
 
         private string DeleteComments(string pattern)
         {
             pattern = Regex.Replace(pattern, "^//.*$", "", RegexOptions.Multiline);
             pattern = pattern.Substring(0, pattern.IndexOf("namespace")).Trim() + "\n\n" + pattern.Substring(pattern.IndexOf("namespace"));
             return pattern;
-        }        
+        }
     }
 }
