@@ -6,8 +6,6 @@ using System.Collections.Generic;
 //Unsubscriber - 2
 //Notify - 3
 //State - 4
-// - 5
-// - 6
 namespace Observer
 {
     class {0} : IObserver<string>

@@ -63,6 +63,28 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\ToolCommand.cs" />
     <Compile Include="GeneratorPackage.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Resources\Patterns\Structural\ProxyCRUD.cs" />
+    <None Include="Resources\Patterns\Structural\ProxyAmbassador.cs" />
+    <None Include="Resources\Patterns\Structural\Proxy.cs" />
+    <None Include="Resources\Patterns\Structural\ObjectAdapter.cs" />
+    <None Include="Resources\Patterns\Structural\Flyweight.cs" />
+    <None Include="Resources\Patterns\Structural\Facade.cs" />
+    <None Include="Resources\Patterns\Structural\Decorator.cs" />
+    <None Include="Resources\Patterns\Structural\Composite.cs" />
+    <None Include="Resources\Patterns\Structural\ClassAdapter.cs" />
+    <None Include="Resources\Patterns\Structural\Bridge.cs" />
+    <None Include="Resources\Patterns\Creational\Singleton.cs" />
+    <None Include="Resources\Patterns\Creational\Prototype.cs" />
+    <None Include="Resources\Patterns\Creational\MultiThreadedSingleton.cs" />
+    <None Include="Resources\Patterns\Creational\LazySingleton.cs" />
+    <None Include="Resources\Patterns\Creational\FactoryMethod.cs" />
+    <None Include="Resources\Patterns\Creational\Builder.cs" />
+    <None Include="Resources\Patterns\Creational\AbstactFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
@@ -80,6 +102,10 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
@@ -115,8 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Patterns\Behavioral\" />
-    <Folder Include="Resources\Patterns\Creational\" />
-    <Folder Include="Resources\Patterns\Structural\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

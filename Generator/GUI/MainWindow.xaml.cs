@@ -1,19 +1,8 @@
 ﻿using Generator.Generation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Microsoft.VisualStudio.Shell;
 
 namespace Generator
 {
@@ -43,6 +32,14 @@ namespace Generator
             }
 
             var singleton = gofGenerator.Singleton("Singleton", "Instance");
+            var multisingleton = gofGenerator.MultiThreadedSingleton("Singleton", "Instance");
+            var lazy = gofGenerator.LazySingleton("Singleton", "Instance");
+            var builder = gofGenerator.Builder("Builder", "Director", "ConcreteBuilder", "Product", "GetResult", "BuildPartA", "BuildPartB", "BuildPartC",
+               "Construct", "Show");
+            var prototype = gofGenerator.Prototype("Prototype");
+            var abstractFactory = gofGenerator.AbstractFactory("AbstractFactory", "AbstraxtProductA", "AbstraxtProductB", "Product", "GetResult", "BuildPartA", "BuildPartB", "BuildPartC",
+                "Construct", "Show", "run", "CreateProductA", "CreateProductB", "Interact");
+            var factoryMethod = gofGenerator.FactoryMethod("FactoryMethod", "Crator", "Product", "ConcreteCreator", "CocreteProduct", "AnOperation");
         }
 
         private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
