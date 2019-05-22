@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generator.Generation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace Generator
     /// </summary>
     public partial class HomePage : Window
     {
+
+        private GOFPatternGenerator gofGenerator = new GOFPatternGenerator();
         public HomePage()
         {
             InitializeComponent();
@@ -37,7 +40,9 @@ namespace Generator
                     this.CreationalPatternsList.Visibility = Visibility.Visible;
                 else
                     this.CreationalPatternsList.Visibility = Visibility.Collapsed;
-            }           
+            }
+
+            var singleton = gofGenerator.Singleton("Singleton", "Instance");
         }
 
         private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
