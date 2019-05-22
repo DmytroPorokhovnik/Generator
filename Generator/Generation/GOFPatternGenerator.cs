@@ -1,4 +1,9 @@
-﻿using System.IO;
+﻿using EnvDTE;
+using Generator.ExtensionDeb;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Generator.Generation
@@ -257,11 +262,51 @@ namespace Generator.Generation
                 concreteVisitor2, visitConcreteElementA, visitConcreteElementB, accept, operationA, operationB);
         }
 
+        public async void GeneratePattern(string pattern, string fileName, string path = "")
+        {           
+            if (string.IsNullOrEmpty(path))
+                path = getCurrentProjectPath();
+            if(string.IsNullOrEmpty(path))
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                VsShellUtilities.ShowMessageBox(
+                  ServiceProvider.GlobalProvider,
+                   "Path is empty",
+                   "Generate error",
+                   OLEMSGICON.OLEMSGICON_INFO,
+                   OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                   OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                return;
+            }          
+            using (FileStream fs = File.Create(Path.Combine(path, fileName)))
+            {
+                var patternBytes = Encoding.ASCII.GetBytes(pattern);
+                fs.Write(patternBytes, 0, patternBytes.Length);
+            }
+        }
+
+        public string getCurrentProjectPath()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var proj = ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE);
+            if (proj == null)
+            {
+                //TODO:
+                return null;
+            }
+            else
+            {
+                var currentProject = (VSLangProj.VSProject)proj.Object;
+                return Path.GetDirectoryName(currentProject.Project.FileName);
+
+            }
+        }
+
         private string DeleteComments(string pattern)
         {
             pattern = Regex.Replace(pattern, "^//.*$", "", RegexOptions.Multiline);
             pattern = pattern.Substring(0, pattern.IndexOf("namespace")).Trim() + "\n\n" + pattern.Substring(pattern.IndexOf("namespace"));
             return pattern;
-        }
+        }        
     }
 }

@@ -8,30 +8,30 @@ using System.Collections.Generic;
 //State - 4
 //Event - 5
 namespace {0}
-{
+{{
     delegate void {0}(string state);  
 
     abstract class {1}
-    {
+    {{
         protected {0} observers = null;
 
         public event {0} {5}
-        {
-            add { observers += value; }
-            remove { observers -= value; }
-        }
+        {{
+            add {{ observers += value; }}
+            remove {{ observers -= value; }}
+        }}
 
-        public abstract string {4} { get; set; }
+        public abstract string {4} {{ get; set; }}
         public abstract void {3}();
-    }  
+    }}  
 
     class {2} : {1}
-    {
-        public override string {4} { get; set; }
+    {{
+        public override string {4} {{ get; set; }}
 
         public override void {3}()
-        {
+        {{
             observers.Invoke({4});
-        }
-    }
-}
+        }}
+    }}
+}}

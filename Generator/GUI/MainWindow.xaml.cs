@@ -40,6 +40,7 @@ namespace Generator
             var abstractFactory = gofGenerator.AbstractFactory("AbstractFactory", "AbstraxtProductA", "AbstraxtProductB", "Product", "GetResult", "BuildPartA", "BuildPartB", "BuildPartC",
                 "Construct", "Show", "run", "CreateProductA", "CreateProductB", "Interact");
             var factoryMethod = gofGenerator.FactoryMethod("FactoryMethod", "Crator", "Product", "ConcreteCreator", "CocreteProduct", "AnOperation");
+            gofGenerator.GeneratePattern(factoryMethod, "Factoryethod.cs");
         }
 
         private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)

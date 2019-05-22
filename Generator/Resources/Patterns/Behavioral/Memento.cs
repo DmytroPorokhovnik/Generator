@@ -7,34 +7,34 @@ using System;
 //CreateMemento - 4
 //State - 5
 namespace {0}
-{
+{{
     class {0}
-    {
-        public string {5} { get; private set; }
+    {{
+        public string {5} {{ get; private set; }}
 
         public {0}(string state)
-        {
+        {{
             this.{5} = state;
-        }
-    }
+        }}
+    }}
 
     class {1}
-    {
-        public {0} {0} { get; set; }
-    }
+    {{
+        public {0} {0} {{ get; set; }}
+    }}
 
     class {2}
-    {
-        public string {5} { get; set; }
+    {{
+        public string {5} {{ get; set; }}
 
         public void {3}({0} memento)
-        {
+        {{
             {5} = memento.{5};
-        }
+        }}
 
         public {0} {4}()
-        {
+        {{
             return new {0}({5});
-        }
-    }
-}
+        }}
+    }}
+}}

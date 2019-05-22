@@ -7,26 +7,26 @@ using System.ServiceModel;
 //Server - 3
 //Say - 4
 namespace Ambassador
-{    
+{{    
     [ServiceContract]
     interface {0}
-    {
+    {{
         [OperationContract]
         void {4}(string input);
-    }
+    }}
 
     class {1} : {0}
-    {
+    {{
         public void {4}(string input)
-        {
+        {{
             Console.WriteLine("Got: " + input);
-        }
-    }
+        }}
+    }}
 
     class {2}
-    {
+    {{
         static void Run()
-        {
+        {{
             Console.Title = "CLIENT";
 
             Uri address = new Uri("http://localhost:4000/{0}"); 
@@ -43,13 +43,13 @@ namespace Ambassador
 
             // Задержка.
             Console.ReadKey();
-        }
-    }
+        }}
+    }}
 
     class {3}
-    {        
+    {{        
         static void Run()
-        {
+        {{
             Console.Title = "SERVER";
           
             Uri address = new Uri("http://localhost:4000/{0}"); 
@@ -64,8 +64,8 @@ namespace Ambassador
             Console.ReadKey();
 
             host.Close();
-        }
-    }
-}
+        }}
+    }}
+}}
 
 
