@@ -2,9 +2,12 @@
 using Generator.ExtensionDeb;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Generator.Generation
 {
@@ -269,75 +272,124 @@ namespace Generator.Generation
 
         #endregion
 
-        //public string Generate(Patterns pattern, string[] arguments)
-        //{
-        //    switch(pattern)
-        //    {
-        //        case Patterns.AbstractFactory:
-        //            return AbstractFactory(arguments);
-        //        case Patterns.Builder:
-        //            return Builder(arguments);
-        //        case Patterns.FactoryMethod:
-        //            return FactoryMethod(arguments);
-        //        case Patterns.Prototype:
-        //            return Prototype(arguments);
-        //        case Patterns.Singleton:
-        //            return Singleton(arguments);
-        //        case Patterns.MultiThreadedSingleton:
-        //            return MultiThreadedSingleton(arguments);
-        //        case Patterns.LazySingleton:
-        //            return LazySingleton(arguments);
+        public async Task<bool> Generate(Patterns pattern, List<string> patternArguments, string filePath, string fileName)
+        {
+            string generatedPattern = "";
+            switch (pattern)
+            {
+                case Patterns.AbstractFactory:
+                    if (patternArguments.Count == 14)
+                        generatedPattern = AbstractFactory(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8],
+                            patternArguments[9], patternArguments[10], patternArguments[11], patternArguments[12], patternArguments[13]);
+                    else
+                        return false;
+                    break;
+                case Patterns.Builder:
+                    if (patternArguments.Count == 10)
+                        generatedPattern = Builder(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8],
+                            patternArguments[9]);
+                    else
+                        return false;
+                    break;
+                case Patterns.FactoryMethod:
+                    if (patternArguments.Count == 6)
+                        generatedPattern = FactoryMethod(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5]);
+                    else
+                        return false;
+                    break;
+                case Patterns.Prototype:
+                    if (patternArguments.Count == 1)
+                        generatedPattern = Prototype(patternArguments[0]);
+                    else
+                        return false;
+                    break;
+                case Patterns.Singleton:
+                    if (patternArguments.Count == 2)
+                        generatedPattern = Singleton(patternArguments[0], patternArguments[1]);
+                    else
+                        return false;
+                    break;
+                case Patterns.MultiThreadedSingleton:
+                    if (patternArguments.Count == 2)
+                        generatedPattern = MultiThreadedSingleton(patternArguments[0], patternArguments[1]);
+                    else
+                        return false;
+                    break;
+                case Patterns.LazySingleton:
+                    if (patternArguments.Count == 2)
+                        generatedPattern = LazySingleton(patternArguments[0], patternArguments[1]);
+                    else
+                        return false;
+                    break;
 
-        //        case Patterns.ObjectAdapter:
-        //            return ObjectAdapter(arguments);
-        //        case Patterns.ClassAdapter:
-        //            return ClassAdapter(arguments);
-        //        case Patterns.Decorator:
-        //            return Decorator(arguments);
-        //        case Patterns.Facade:
-        //            return Facade(arguments);
-        //        case Patterns.Flyweight:
-        //            return Flyweight(arguments);
-        //        case Patterns.Proxy:
-        //            return Proxy(arguments);
-        //        case Patterns.ProxyAmbassador:
-        //            return ProxyAmbassador(arguments);
-        //        case Patterns.ProxyCrud:
-        //            return ProxyCrud(arguments);
+                    //case Patterns.ObjectAdapter:
+                    //    return ObjectAdapter(arguments);
+                    //case Patterns.ClassAdapter:
+                    //    return ClassAdapter(arguments);
+                    //case Patterns.Decorator:
+                    //    return Decorator(arguments);
+                    //case Patterns.Facade:
+                    //    return Facade(arguments);
+                    //case Patterns.Flyweight:
+                    //    return Flyweight(arguments);
+                    //case Patterns.Proxy:
+                    //    return Proxy(arguments);
+                    //case Patterns.ProxyAmbassador:
+                    //    return ProxyAmbassador(arguments);
+                    //case Patterns.ProxyCrud:
+                    //    return ProxyCrud(arguments);
 
-        //        case Patterns.ChainOfResponsibility:
-        //            return ChainOfResponsibility(arguments);
-        //        case Patterns.Iterator:
-        //            return Iterator(arguments);
-        //        case Patterns.IteratorNET:
-        //            return IteratorNET(arguments);
-        //        case Patterns.YieldIterator:
-        //            return YieldIterator(arguments);
-        //        case Patterns.Command:
-        //            return Command(arguments);
-        //        case Patterns.Mediator:
-        //            return Mediator(arguments);
-        //        case Patterns.Memento:
-        //            return Memento(arguments);
-        //        case Patterns.Observer:
-        //            return Observer(arguments);
-        //        case Patterns.ObserverEvent:
-        //            return ObserverEvent(arguments);
-        //        case Patterns.ObserverNET:
-        //            return ObserverNET(arguments);
-        //        case Patterns.State:
-        //            return State(arguments);
-        //        case Patterns.Strategy:
-        //            return Strategy(arguments);
-        //        case Patterns.Visitor:
-        //            return Visitor(arguments);
-        //        case Patterns.TemplateMethod:
-        //            return TemplateMethod(arguments);
-        //    }
+                    //case Patterns.ChainOfResponsibility:
+                    //    return ChainOfResponsibility(arguments);
+                    //case Patterns.Iterator:
+                    //    return Iterator(arguments);
+                    //case Patterns.IteratorNET:
+                    //    return IteratorNET(arguments);
+                    //case Patterns.YieldIterator:
+                    //    return YieldIterator(arguments);
+                    //case Patterns.Command:
+                    //    return Command(arguments);
+                    //case Patterns.Mediator:
+                    //    return Mediator(arguments);
+                    //case Patterns.Memento:
+                    //    return Memento(arguments);
+                    //case Patterns.Observer:
+                    //    return Observer(arguments);
+                    //case Patterns.ObserverEvent:
+                    //    return ObserverEvent(arguments);
+                    //case Patterns.ObserverNET:
+                    //    return ObserverNET(arguments);
+                    //case Patterns.State:
+                    //    return State(arguments);
+                    //case Patterns.Strategy:
+                    //    return Strategy(arguments);
+                    //case Patterns.Visitor:
+                    //    return Visitor(arguments);
+                    //case Patterns.TemplateMethod:
+                    //    return TemplateMethod(arguments);                  
+            }
+            await GeneratePatternAsync(generatedPattern, fileName, filePath);
+            return true;
+        }
 
-        //}
+        public string getCurrentProjectPath()
+        {
+            return ExtensionHelper.GetCurrentProjectPath();
+        }
 
-        public async System.Threading.Tasks.Task GeneratePatternAsync(string pattern, string fileName, string path = "")
+        #endregion
+
+        private string DeleteComments(string pattern)
+        {
+            pattern = Regex.Replace(pattern, "^//.*$", "", RegexOptions.Multiline);
+            pattern = pattern.Substring(0, pattern.IndexOf("namespace")).Trim() + "\n\n" + pattern.Substring(pattern.IndexOf("namespace"));
+            return pattern;
+        }
+
+        private async System.Threading.Tasks.Task GeneratePatternAsync(string pattern, string fileName, string path = "")
         {
             if (string.IsNullOrEmpty(path))
                 path = getCurrentProjectPath();
@@ -358,20 +410,6 @@ namespace Generator.Generation
                 var patternBytes = Encoding.ASCII.GetBytes(pattern);
                 fs.Write(patternBytes, 0, patternBytes.Length);
             }
-        }
-
-        public string getCurrentProjectPath()
-        {
-            return ExtensionHelper.GetCurrentProjectPath();
-        }
-
-        #endregion
-
-        private string DeleteComments(string pattern)
-        {
-            pattern = Regex.Replace(pattern, "^//.*$", "", RegexOptions.Multiline);
-            pattern = pattern.Substring(0, pattern.IndexOf("namespace")).Trim() + "\n\n" + pattern.Substring(pattern.IndexOf("namespace"));
-            return pattern;
         }
     }
 }

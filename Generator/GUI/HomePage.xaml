@@ -5,15 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Generator.GUI"
              mc:Ignorable="d" Background="White" x:Name="home">
-    <Grid Width="Auto" Height="Auto" MinHeight="720" MinWidth="500">
-        <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Label VerticalAlignment="Center" >File path:</Label>
-            <TextBox VerticalAlignment="Center" TextWrapping="Wrap" BorderThickness="0.5" Height="Auto" Width="Auto" MaxWidth ="440" Text="{Binding Path=FilePath, ElementName=home}"/>
+    <Grid Width="Auto" Height="Auto" MinHeight="620" MinWidth="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Label VerticalAlignment="Center" >File path:</Label>
+                <TextBox Name="filePathTextBox" BorderBrush="LightGray" VerticalAlignment="Center" TextWrapping="Wrap" BorderThickness="0.5" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Label VerticalAlignment="Center" >File name:</Label>
+                <TextBox Name="fileNameTextBox" BorderBrush="LightGray" VerticalAlignment="Center" TextWrapping="Wrap" BorderThickness="0.5" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+            </StackPanel>
         </StackPanel>
 
-        <ListView Name="elementsList" BorderThickness="0" Margin="0,50,0,0">
+        <ListView Grid.Row="1" Name="elementsList" BorderThickness="0" Margin="0,0,0,0">
             <ListView.Resources>
-
             </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -30,5 +40,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
     </Grid>
 </Page>

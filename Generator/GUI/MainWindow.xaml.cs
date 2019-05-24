@@ -39,16 +39,16 @@ namespace Generator
                     this.CreationalPatternsList.Visibility = Visibility.Collapsed;
             }
 
-            var singleton = gofGenerator.Singleton("Singleton", "Instance");
-            var multisingleton = gofGenerator.MultiThreadedSingleton("Singleton", "Instance");
-            var lazy = gofGenerator.LazySingleton("Singleton", "Instance");
-            var builder = gofGenerator.Builder("Builder", "Director", "ConcreteBuilder", "Product", "GetResult", "BuildPartA", "BuildPartB", "BuildPartC",
-               "Construct", "Show");
-            var prototype = gofGenerator.Prototype("Prototype");
-            var abstractFactory = gofGenerator.AbstractFactory("AbstractFactory", "AbstraxtProductA", "AbstraxtProductB", "Product", "GetResult", "BuildPartA", "BuildPartB", "BuildPartC",
-                "Construct", "Show", "run", "CreateProductA", "CreateProductB", "Interact");
-            var factoryMethod = gofGenerator.FactoryMethod("FactoryMethod", "Creator", "Product", "ConcreteCreator", "ConcreteProduct", "AnOperation");
-            //await gofGenerator.GeneratePatternAsync(factoryMethod, "Factoryethod.cs");
+            //var singleton = gofgenerator.singleton("singleton", "instance");
+            //var multisingleton = gofgenerator.multithreadedsingleton("singleton", "instance");
+            //var lazy = gofgenerator.lazysingleton("singleton", "instance");
+            //var builder = gofgenerator.builder("builder", "director", "concretebuilder", "product", "getresult", "buildparta", "buildpartb", "buildpartc",
+            //   "construct", "show");
+            //var prototype = gofgenerator.prototype("prototype");
+            //var abstractfactory = gofgenerator.abstractfactory("abstractfactory", "abstraxtproducta", "abstraxtproductb", "product", "getresult", "buildparta", "buildpartb", "buildpartc",
+            //    "construct", "show", "run", "createproducta", "createproductb", "interact");
+            //var factorymethod = gofgenerator.factorymethod("factorymethod", "creator", "product", "concretecreator", "concreteproduct", "anoperation");
+            //await gofgenerator.generatepatternasync(factorymethod, "factoryethod.cs");
         }
 
         private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)

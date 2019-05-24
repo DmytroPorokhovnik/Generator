@@ -25,12 +25,31 @@ namespace Generator.GUI
     public partial class HomePage : Page
     {
 
-        private DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(HomePage));
+        private static DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(HomePage));
+        private static DependencyProperty FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(HomePage));
         private ObservableCollection<PatternViewModel> PatternsElements { get; set; }
+        private readonly GOFPatternGenerator gofGenerator = new GOFPatternGenerator();
+        private Patterns currentPattern = new Patterns();
+
+        private async void Generate_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> patternArguments = new List<string>();
+            foreach (var patternelement in PatternsElements)
+            {
+                patternArguments.Add(patternelement.MemberName);
+            }
+            var result = await gofGenerator.Generate(currentPattern, patternArguments, FilePath, FileName);
+            if(!result)
+            {
+
+            }
+        }
 
 
         public void InitializePatternEditor(Patterns pattern)
         {
+            currentPattern = pattern;
+            FileName = pattern.ToString() + ".cs";
             PatternsElements.Clear();
             switch (pattern)
             {
@@ -208,7 +227,7 @@ namespace Generator.GUI
                     break;
                 case Patterns.IteratorNET:
                     PatternsElements.Add(new PatternViewModel("Iterator Class Name", "Enumerator"));
-                    PatternsElements.Add(new PatternViewModel("Aggregate Class Name", "Enumerable"));                   
+                    PatternsElements.Add(new PatternViewModel("Aggregate Class Name", "Enumerable"));
                     break;
                 case Patterns.YieldIterator:
                     PatternsElements.Add(new PatternViewModel("Aggregate Class Name", "Enumerable"));
@@ -297,20 +316,37 @@ namespace Generator.GUI
             }
         }
 
+        public string FileName
+        {
+            get { return (string)this.GetValue(FileNameProperty); }
+            set
+            {
+                this.SetValue(FileNameProperty, value);               
+            }
+        }
+
         public string FilePath
         {
             get { return (string)this.GetValue(FilePathProperty); }
-            set { this.SetValue(FilePathProperty, value); }
+            set
+            {
+                this.SetValue(FilePathProperty, value);
+                if (string.IsNullOrEmpty(value))
+                {
+                    filePathTextBox.BorderThickness = new Thickness(0);
+                    filePathTextBox.Text = "There is no open project";
+                }
+                else
+                    filePathTextBox.BorderThickness = new Thickness(1);
+            }
         }
 
         public HomePage()
         {
             InitializeComponent();
-            //PatternsElements = new List<PatternViewModel>();
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
             FilePath = ExtensionHelper.GetCurrentProjectPath();
-        }
-
+        }       
     }
 }
