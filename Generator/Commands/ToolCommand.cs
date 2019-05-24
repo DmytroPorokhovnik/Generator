@@ -90,7 +90,7 @@ namespace Generator
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var homePage = new HomePage();
+            var homePage = new MainWindow();
             homePage.Show();
         }
     }

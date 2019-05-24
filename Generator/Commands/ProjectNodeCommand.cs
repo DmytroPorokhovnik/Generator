@@ -85,7 +85,7 @@ namespace Generator
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            var homePage = new HomePage();
+            var homePage = new MainWindow();
             homePage.Show();
         }
     }

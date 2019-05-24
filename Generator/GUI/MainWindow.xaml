@@ -1,4 +1,4 @@
-﻿<Window x:Class="Generator.HomePage"
+﻿<Window x:Class="Generator.MainWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -94,6 +94,8 @@
                             <Button Style="{DynamicResource PatternButtonStyle}">Factory method</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Prototype</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Singleton</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Lazy Singleton</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Multithreaded Singleton</Button>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="1">
@@ -111,13 +113,16 @@
                             </Border>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="StructuralPatternsList">
-                            <Button Style="{DynamicResource PatternButtonStyle}">Adapter</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Object Adapter</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Class Adapter</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Bridge</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Composite</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Decorator</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Facade</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Flyweight</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Proxy</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Proxy CRUD</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Proxy Ambassador</Button>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="2">
@@ -138,9 +143,13 @@
                             <Button Style="{DynamicResource PatternButtonStyle}">Chain of responsibility</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Command</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Iterator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">.Net Iterator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Yield Iterator</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Mediator</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Memento</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Observer</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Observer Event</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Observer(.NET interfaces)</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">State</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Strategy</Button>
                             <Button Style="{DynamicResource PatternButtonStyle}">Template method</Button>
@@ -152,6 +161,7 @@
             <!-- END Side Menu-->
             <Grid Grid.Column="1" Width="Auto" Height="Auto">
                 <Frame Visibility="Collapsed" Source="HomePage.xaml" Name="p_home"></Frame>
+                <!--<gui:HomePage x:Name="p_home" Visibility="Collapsed"></gui:HomePage>-->
             </Grid>            
         </Grid>        
     </Grid>

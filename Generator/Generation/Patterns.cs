@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Generator.Generation
 {
-    enum Patterns
+    public enum Patterns
     {
         AbstractFactory, FactoryMethod, Singleton, Prototype, Builder, MultiThreadedSingleton, LazySingleton,
         Bridge, ObjectAdapter, ClassAdapter, Decorator, Facade, Composite, Flyweight, Proxy, ProxyAmbassador, ProxyCrud,
-        ChainOfResponsibility, Iterator, IteratorNET, YieldIterator, Command, Mediator, Memento, Observer, ObserverEvent, ObserverNET, State, Strategy, Visitor, TemplateMethod
+        ChainOfResponsibility, Interpreter, Iterator, IteratorNET, YieldIterator, Command, Mediator, Memento, Observer, ObserverEvent, ObserverNET, State, Strategy, Visitor, TemplateMethod
     }
 }
