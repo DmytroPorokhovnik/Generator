@@ -274,6 +274,38 @@ namespace Generator.Generation
 
         public async Task<bool> Generate(Patterns pattern, List<string> patternArguments, string filePath, string fileName)
         {
+            if (!await CheckFileNameAndPathAsync(fileName, filePath))
+                return false;
+
+            var generatedPattern = GetPattern(pattern, patternArguments);
+
+            if (string.IsNullOrEmpty(generatedPattern))
+                return false;
+
+            return GeneratePattern(generatedPattern, fileName, filePath);
+        }
+
+        public async Task<bool> Generate(Patterns pattern, List<string> patternArguments)
+        {
+            var activeDocumentPath = ExtensionHelper.GetActiveDocumentPath();
+            var caretPosition = ExtensionHelper.GetCaretLine();
+            var generatedPattern = GetPattern(pattern, patternArguments);
+            if (string.IsNullOrEmpty(generatedPattern))
+                return false;
+
+            GeneratePattern(generatedPattern, activeDocumentPath, caretPosition);
+            return true;
+        }
+
+        public string GetCurrentProjectPath()
+        {
+            return ExtensionHelper.GetCurrentProjectPath();
+        }
+
+        #endregion
+
+        private string GetPattern(Patterns pattern, List<string> patternArguments)
+        {
             string generatedPattern = "";
             switch (pattern)
             {
@@ -283,7 +315,7 @@ namespace Generator.Generation
                             patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8],
                             patternArguments[9], patternArguments[10], patternArguments[11], patternArguments[12], patternArguments[13]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
                 case Patterns.Builder:
                     if (patternArguments.Count == 10)
@@ -291,96 +323,195 @@ namespace Generator.Generation
                             patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8],
                             patternArguments[9]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
                 case Patterns.FactoryMethod:
                     if (patternArguments.Count == 6)
                         generatedPattern = FactoryMethod(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
                             patternArguments[4], patternArguments[5]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
                 case Patterns.Prototype:
                     if (patternArguments.Count == 1)
                         generatedPattern = Prototype(patternArguments[0]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
                 case Patterns.Singleton:
                     if (patternArguments.Count == 2)
                         generatedPattern = Singleton(patternArguments[0], patternArguments[1]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
                 case Patterns.MultiThreadedSingleton:
                     if (patternArguments.Count == 2)
                         generatedPattern = MultiThreadedSingleton(patternArguments[0], patternArguments[1]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
                 case Patterns.LazySingleton:
                     if (patternArguments.Count == 2)
                         generatedPattern = LazySingleton(patternArguments[0], patternArguments[1]);
                     else
-                        return false;
+                        return generatedPattern;
                     break;
 
-                    //case Patterns.ObjectAdapter:
-                    //    return ObjectAdapter(arguments);
-                    //case Patterns.ClassAdapter:
-                    //    return ClassAdapter(arguments);
-                    //case Patterns.Decorator:
-                    //    return Decorator(arguments);
-                    //case Patterns.Facade:
-                    //    return Facade(arguments);
-                    //case Patterns.Flyweight:
-                    //    return Flyweight(arguments);
-                    //case Patterns.Proxy:
-                    //    return Proxy(arguments);
-                    //case Patterns.ProxyAmbassador:
-                    //    return ProxyAmbassador(arguments);
-                    //case Patterns.ProxyCrud:
-                    //    return ProxyCrud(arguments);
+                case Patterns.ObjectAdapter:
+                    if (patternArguments.Count == 5)
+                        generatedPattern = ObjectAdapter(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.ClassAdapter:
+                    if (patternArguments.Count == 5)
+                        generatedPattern = ClassAdapter(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Decorator:
+                    if (patternArguments.Count == 7)
+                        generatedPattern = Decorator(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Facade:
+                    if (patternArguments.Count == 9)
+                        generatedPattern = Facade(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Flyweight:
+                    if (patternArguments.Count == 7)
+                        generatedPattern = Flyweight(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Proxy:
+                    if (patternArguments.Count == 4)
+                        generatedPattern = Proxy(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.ProxyAmbassador:
+                    if (patternArguments.Count == 5)
+                        generatedPattern = ProxyAmbassador(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.ProxyCrud:
+                    if (patternArguments.Count == 7)
+                        generatedPattern = ProxyCrud(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6]);
+                    else
+                        return generatedPattern;
+                    break;
 
-                    //case Patterns.ChainOfResponsibility:
-                    //    return ChainOfResponsibility(arguments);
-                    //case Patterns.Iterator:
-                    //    return Iterator(arguments);
-                    //case Patterns.IteratorNET:
-                    //    return IteratorNET(arguments);
-                    //case Patterns.YieldIterator:
-                    //    return YieldIterator(arguments);
-                    //case Patterns.Command:
-                    //    return Command(arguments);
-                    //case Patterns.Mediator:
-                    //    return Mediator(arguments);
-                    //case Patterns.Memento:
-                    //    return Memento(arguments);
-                    //case Patterns.Observer:
-                    //    return Observer(arguments);
-                    //case Patterns.ObserverEvent:
-                    //    return ObserverEvent(arguments);
-                    //case Patterns.ObserverNET:
-                    //    return ObserverNET(arguments);
-                    //case Patterns.State:
-                    //    return State(arguments);
-                    //case Patterns.Strategy:
-                    //    return Strategy(arguments);
-                    //case Patterns.Visitor:
-                    //    return Visitor(arguments);
-                    //case Patterns.TemplateMethod:
-                    //    return TemplateMethod(arguments);                  
+                case Patterns.ChainOfResponsibility:
+                    if (patternArguments.Count == 5)
+                        generatedPattern = ChainOfResponsibility(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Iterator:
+                    if (patternArguments.Count == 9)
+                        generatedPattern = Iterator(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.IteratorNET:
+                    if (patternArguments.Count == 2)
+                        generatedPattern = IteratorNET(patternArguments[0], patternArguments[1]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.YieldIterator:
+                    if (patternArguments.Count == 1)
+                        generatedPattern = YieldIterator(patternArguments[0]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Command:
+                    if (patternArguments.Count == 4)
+                        generatedPattern = Command(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Mediator:
+                    if (patternArguments.Count == 7)
+                        generatedPattern = Mediator(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Memento:
+                    if (patternArguments.Count == 6)
+                        generatedPattern = Memento(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Observer:
+                    if (patternArguments.Count == 8)
+                        generatedPattern = Observer(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.ObserverEvent:
+                    if (patternArguments.Count == 6)
+                        generatedPattern = ObserverEvent(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.ObserverNET:
+                    if (patternArguments.Count == 5)
+                        generatedPattern = ObserverNET(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.State:
+                    if (patternArguments.Count == 6)
+                        generatedPattern = State(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Strategy:
+                    if (patternArguments.Count == 7)
+                        generatedPattern = Strategy(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.Visitor:
+                    if (patternArguments.Count == 12)
+                        generatedPattern = Visitor(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4], patternArguments[5], patternArguments[6], patternArguments[7], patternArguments[8],
+                            patternArguments[9], patternArguments[10], patternArguments[11]);
+                    else
+                        return generatedPattern;
+                    break;
+                case Patterns.TemplateMethod:
+                    if (patternArguments.Count == 5)
+                        generatedPattern = TemplateMethod(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
+                            patternArguments[4]);
+                    else
+                        return generatedPattern;
+                    break;
             }
-            await GeneratePatternAsync(generatedPattern, fileName, filePath);
-            return true;
+            return generatedPattern;
         }
-
-        public string getCurrentProjectPath()
-        {
-            return ExtensionHelper.GetCurrentProjectPath();
-        }
-
-        #endregion
 
         private string DeleteComments(string pattern)
         {
@@ -389,10 +520,57 @@ namespace Generator.Generation
             return pattern;
         }
 
-        private async System.Threading.Tasks.Task GeneratePatternAsync(string pattern, string fileName, string path = "")
+        private bool GeneratePattern(string pattern, string fileName, string path)
+        {
+            using (FileStream fs = File.Create(Path.Combine(path, fileName)))
+            {
+                var patternBytes = Encoding.ASCII.GetBytes(pattern);
+                fs.Write(patternBytes, 0, patternBytes.Length);
+            }
+            return true;
+        }
+
+        private bool GeneratePattern(string pattern, string filePath, int currentLine)
+        {            
+           
+            string line = "";
+            int counter = 1;
+            StringBuilder resultText = new StringBuilder();
+            using (StreamReader file = new StreamReader(filePath))
+            {
+                while ((line = file.ReadLine()) != null)
+                {
+                    if (currentLine != counter)
+                    {
+                        resultText.AppendLine(line);
+                    }
+                    else if (currentLine == counter)
+                    {
+                        resultText.Append(MakePatternForExistedFile(pattern));
+                        resultText.AppendLine();
+                        resultText.AppendLine(line);
+                    }
+                    counter++;
+                }
+            }
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                writer.Write(resultText.ToString());
+            }
+                return true;
+        }
+
+        private string MakePatternForExistedFile(string pattern)
+        {
+            var startIndex = pattern.IndexOf("{");
+            var endIndex = pattern.LastIndexOf("}");
+            return pattern.Substring(startIndex + 1, endIndex - startIndex - 1);
+        }
+
+        private async Task<bool> CheckFileNameAndPathAsync(string fileName, string path)
         {
             if (string.IsNullOrEmpty(path))
-                path = getCurrentProjectPath();
+                path = GetCurrentProjectPath();
             if (string.IsNullOrEmpty(path))
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -403,13 +581,22 @@ namespace Generator.Generation
                    OLEMSGICON.OLEMSGICON_INFO,
                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-                return;
+                return false;
             }
-            using (FileStream fs = File.Create(Path.Combine(path, fileName)))
+
+            if (string.IsNullOrEmpty(fileName) || fileName.Contains(" "))
             {
-                var patternBytes = Encoding.ASCII.GetBytes(pattern);
-                fs.Write(patternBytes, 0, patternBytes.Length);
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                VsShellUtilities.ShowMessageBox(
+                  ServiceProvider.GlobalProvider,
+                   "Incorrect file name",
+                   "Generate error",
+                   OLEMSGICON.OLEMSGICON_INFO,
+                   OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                   OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                return false;
             }
+            return true;
         }
     }
 }

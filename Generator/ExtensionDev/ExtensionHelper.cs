@@ -41,5 +41,20 @@ namespace Generator.ExtensionDeb
 
             }
         }
+
+        internal static int GetCaretLine()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            var txtSelection = dte.ActiveDocument.Selection as TextSelection;
+            return txtSelection.ActivePoint.Line;
+        }
+
+        internal static string GetActiveDocumentPath()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            return dte.ActiveDocument.FullName;
+        }
     }
 }

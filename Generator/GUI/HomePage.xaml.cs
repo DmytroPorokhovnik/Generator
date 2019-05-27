@@ -1,5 +1,7 @@
 ﻿using Generator.ExtensionDeb;
 using Generator.Generation;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,16 +35,37 @@ namespace Generator.GUI
 
         private async void Generate_Click(object sender, RoutedEventArgs e)
         {
-            List<string> patternArguments = new List<string>();
-            foreach (var patternelement in PatternsElements)
+            try
             {
-                patternArguments.Add(patternelement.MemberName);
+                List<string> patternArguments = new List<string>();
+                foreach (var patternelement in PatternsElements)
+                {
+                    patternArguments.Add(patternelement.MemberName);
+                }
+                var result = await gofGenerator.Generate(currentPattern, patternArguments);
+                if (!result)
+                {
+                    
+                }
             }
-            var result = await gofGenerator.Generate(currentPattern, patternArguments, FilePath, FileName);
-            if(!result)
+            catch(Exception ex)
             {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                VsShellUtilities.ShowMessageBox(
+                  ServiceProvider.GlobalProvider,
+                   "Something went wrong: " + ex.Message, 
+                   "Generate error",
+                   OLEMSGICON.OLEMSGICON_INFO,
+                   OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                   OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            }
+        }
+        
+       
 
-            }
+        private string GetActiveDocumentPath()
+        {
+            return ExtensionHelper.GetActiveDocumentPath();
         }
 
 
