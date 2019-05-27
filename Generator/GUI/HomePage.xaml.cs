@@ -29,6 +29,7 @@ namespace Generator.GUI
 
         private static DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(HomePage));
         private static DependencyProperty FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(HomePage));
+        private static DependencyProperty IsSomeFileOpenedProperty = DependencyProperty.Register("IsSomeFileOpened", typeof(bool), typeof(HomePage));
         private ObservableCollection<PatternViewModel> PatternsElements { get; set; }
         private readonly GOFPatternGenerator gofGenerator = new GOFPatternGenerator();
         private Patterns currentPattern = new Patterns();
@@ -38,30 +39,34 @@ namespace Generator.GUI
             try
             {
                 List<string> patternArguments = new List<string>();
+                bool result;
                 foreach (var patternelement in PatternsElements)
                 {
                     patternArguments.Add(patternelement.MemberName);
                 }
-                var result = await gofGenerator.Generate(currentPattern, patternArguments);
+                if (GenerateToCurrentPositionCheckBox.IsChecked ?? false)
+                    result = await gofGenerator.Generate(currentPattern, patternArguments);
+                else
+                    result = await gofGenerator.Generate(currentPattern, patternArguments, FilePath, FileName);
                 if (!result)
                 {
-                    
+
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
                 VsShellUtilities.ShowMessageBox(
                   ServiceProvider.GlobalProvider,
-                   "Something went wrong: " + ex.Message, 
+                   "Something went wrong: " + ex.Message,
                    "Generate error",
                    OLEMSGICON.OLEMSGICON_INFO,
                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
         }
-        
-       
+
+
 
         private string GetActiveDocumentPath()
         {
@@ -344,7 +349,15 @@ namespace Generator.GUI
             get { return (string)this.GetValue(FileNameProperty); }
             set
             {
-                this.SetValue(FileNameProperty, value);               
+                this.SetValue(FileNameProperty, value);
+            }
+        }
+        public bool IsSomeFileOpened
+        {
+            get { return (bool)this.GetValue(IsSomeFileOpenedProperty); }
+            set
+            {
+                this.SetValue(IsSomeFileOpenedProperty, value);
             }
         }
 
@@ -370,6 +383,7 @@ namespace Generator.GUI
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
             FilePath = ExtensionHelper.GetCurrentProjectPath();
-        }       
+            IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
+        }
     }
 }

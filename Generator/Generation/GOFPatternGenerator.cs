@@ -282,7 +282,7 @@ namespace Generator.Generation
             if (string.IsNullOrEmpty(generatedPattern))
                 return false;
 
-            return GeneratePattern(generatedPattern, fileName, filePath);
+            return GeneratePatternIntoNewFile(generatedPattern, fileName, filePath);
         }
 
         public async Task<bool> Generate(Patterns pattern, List<string> patternArguments)
@@ -520,13 +520,16 @@ namespace Generator.Generation
             return pattern;
         }
 
-        private bool GeneratePattern(string pattern, string fileName, string path)
+        private bool GeneratePatternIntoNewFile(string pattern, string fileName, string path)
         {
             using (FileStream fs = File.Create(Path.Combine(path, fileName)))
             {
                 var patternBytes = Encoding.ASCII.GetBytes(pattern);
                 fs.Write(patternBytes, 0, patternBytes.Length);
             }
+
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            dte.ItemOperations.AddExistingItem(Path.Combine(path, fileName));
             return true;
         }
 

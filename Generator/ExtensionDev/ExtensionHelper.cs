@@ -54,6 +54,8 @@ namespace Generator.ExtensionDeb
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            if (dte.ActiveDocument == null)
+                return null;
             return dte.ActiveDocument.FullName;
         }
     }

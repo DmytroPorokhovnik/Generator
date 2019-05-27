@@ -20,6 +20,10 @@
                 <Label VerticalAlignment="Center" >File name:</Label>
                 <TextBox Name="fileNameTextBox" BorderBrush="LightGray" VerticalAlignment="Center" TextWrapping="Wrap" BorderThickness="0.5" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Label VerticalAlignment="Center" >Generate to current position</Label>
+                <CheckBox IsEnabled="{Binding Path=IsSomeFileOpened, ElementName=home}" VerticalAlignment="Center" x:Name="GenerateToCurrentPositionCheckBox"></CheckBox>
+            </StackPanel>
         </StackPanel>
 
         <ListView Grid.Row="1" Name="elementsList" BorderThickness="0" Margin="0,0,0,0">
