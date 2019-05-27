@@ -535,33 +535,37 @@ namespace Generator.Generation
         }
 
         private bool GeneratePattern(string pattern, string filePath, int currentLine)
-        {            
-           
-            string line = "";
-            int counter = 1;
-            StringBuilder resultText = new StringBuilder();
-            using (StreamReader file = new StreamReader(filePath))
-            {
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (currentLine != counter)
-                    {
-                        resultText.AppendLine(line);
-                    }
-                    else if (currentLine == counter)
-                    {
-                        resultText.Append(MakePatternForExistedFile(pattern));
-                        resultText.AppendLine();
-                        resultText.AppendLine(line);
-                    }
-                    counter++;
-                }
-            }
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                writer.Write(resultText.ToString());
-            }
-                return true;
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            //string line = "";
+            //int counter = 1;
+            //StringBuilder resultText = new StringBuilder();
+            //using (StreamReader file = new StreamReader(filePath))
+            //{
+            //    while ((line = file.ReadLine()) != null)
+            //    {
+            //        if (currentLine != counter)
+            //        {
+            //            resultText.AppendLine(line);
+            //        }
+            //        else if (currentLine == counter)
+            //        {
+            //            resultText.Append(MakePatternForExistedFile(pattern));
+            //            resultText.AppendLine();
+            //            resultText.AppendLine(line);
+            //        }
+            //        counter++;
+            //    }
+            //}
+            //using (StreamWriter writer = new StreamWriter(filePath))
+            //{
+            //    writer.Write(resultText.ToString());
+            //}
+
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            TextSelection txtSel = (TextSelection)dte.ActiveDocument.Selection;
+            txtSel.Insert(MakePatternForExistedFile(pattern));
+            return true;
         }
 
         private string MakePatternForExistedFile(string pattern)

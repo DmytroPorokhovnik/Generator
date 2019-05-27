@@ -11,6 +11,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
+
         <StackPanel Grid.Row="0">
             <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Label VerticalAlignment="Center" >File path:</Label>
@@ -29,6 +30,13 @@
         <ListView Grid.Row="1" Name="elementsList" BorderThickness="0" Margin="0,0,0,0">
             <ListView.Resources>
             </ListView.Resources>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Focusable" Value="false"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -44,6 +52,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
         <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
     </Grid>
 </Page>

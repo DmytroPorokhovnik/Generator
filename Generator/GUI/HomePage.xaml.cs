@@ -36,9 +36,13 @@ namespace Generator.GUI
                     result = await gofGenerator.GenerateIntoSelectedFile(currentPattern, patternArguments);
                 else
                     result = await gofGenerator.GenerateIntoNewFile(currentPattern, patternArguments, FilePath, FileName);
-                if (!result)
+                if (result)
                 {
-
+                    await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    VsShellUtilities.ShowMessageBox( ServiceProvider.GlobalProvider,
+                  "Pattern was successfully generated!",
+                  "Generate message", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                  OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
                 }
             }
             catch (Exception ex)
@@ -48,7 +52,7 @@ namespace Generator.GUI
                   ServiceProvider.GlobalProvider,
                    "Something went wrong: " + ex.Message,
                    "Generate error",
-                   OLEMSGICON.OLEMSGICON_INFO,
+                   OLEMSGICON.OLEMSGICON_CRITICAL,
                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
