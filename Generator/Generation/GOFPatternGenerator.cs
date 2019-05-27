@@ -272,7 +272,7 @@ namespace Generator.Generation
 
         #endregion
 
-        public async Task<bool> Generate(Patterns pattern, List<string> patternArguments, string filePath, string fileName)
+        public async Task<bool> GenerateIntoNewFile(Patterns pattern, List<string> patternArguments, string filePath, string fileName)
         {
             if (!await CheckFileNameAndPathAsync(fileName, filePath))
                 return false;
@@ -285,7 +285,7 @@ namespace Generator.Generation
             return GeneratePatternIntoNewFile(generatedPattern, fileName, filePath);
         }
 
-        public async Task<bool> Generate(Patterns pattern, List<string> patternArguments)
+        public async Task<bool> GenerateIntoSelectedFile(Patterns pattern, List<string> patternArguments)
         {
             var activeDocumentPath = ExtensionHelper.GetActiveDocumentPath();
             var caretPosition = ExtensionHelper.GetCaretLine();
@@ -522,6 +522,7 @@ namespace Generator.Generation
 
         private bool GeneratePatternIntoNewFile(string pattern, string fileName, string path)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             using (FileStream fs = File.Create(Path.Combine(path, fileName)))
             {
                 var patternBytes = Encoding.ASCII.GetBytes(pattern);

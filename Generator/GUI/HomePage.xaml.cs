@@ -5,20 +5,8 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace Generator.GUI
 {
     /// <summary>
@@ -45,9 +33,9 @@ namespace Generator.GUI
                     patternArguments.Add(patternelement.MemberName);
                 }
                 if (GenerateToCurrentPositionCheckBox.IsChecked ?? false)
-                    result = await gofGenerator.Generate(currentPattern, patternArguments);
+                    result = await gofGenerator.GenerateIntoSelectedFile(currentPattern, patternArguments);
                 else
-                    result = await gofGenerator.Generate(currentPattern, patternArguments, FilePath, FileName);
+                    result = await gofGenerator.GenerateIntoNewFile(currentPattern, patternArguments, FilePath, FileName);
                 if (!result)
                 {
 
