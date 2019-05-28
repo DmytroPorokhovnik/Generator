@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using WPFGenerator;
 using Task = System.Threading.Tasks.Task;
 
 namespace Generator
@@ -90,7 +91,7 @@ namespace Generator
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var homePage = new MainWindow();
+            var homePage = new MainWindowVS();
             homePage.Show();
         }
     }
