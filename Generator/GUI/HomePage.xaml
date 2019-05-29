@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Generator.GUI"
-             mc:Ignorable="d" Background="White" x:Name="home">
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             mc:Ignorable="d" Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
+             Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}" x:Name="home">
     <Grid Width="Auto" Height="Auto" MinHeight="620" MinWidth="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
