@@ -1,32 +1,47 @@
-﻿using Generator.Generation;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using Microsoft.VisualStudio.Shell;
-using Generator.GUI;
-
-namespace Generator
+﻿namespace Generator
 {
+    using Generator.Generation;
+    using Generator.GUI;
+    using MaterialDesignColors;
+    using MaterialDesignThemes.Wpf;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Media;
+
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for MainWindowVSControl.
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowVSControl : UserControl
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            CurrentPattern = Patterns.AbstractFactory;
-        }
-
         public Patterns CurrentPattern { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowVSControl"/> class.
+        /// </summary>
+        public MainWindowVSControl()
+        {
+            var card = new Card();
+            var hue = new Hue("Dummy", Colors.Black, Colors.White);
 
+            this.InitializeComponent();
+        }
 
         #region Private Methods  
         /// <summary>
-        /// 
+        /// Handles click on the button by displaying a message box.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event args.</param>
+        [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions", Justification = "Sample code")]
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Default event handler naming pattern")]
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(
+                string.Format(System.Globalization.CultureInfo.CurrentUICulture, "Invoked '{0}'", this.ToString()),
+                "MainWindowVS");
+        }
+
         private void CreationalPatternsToggleButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is ToggleButton button)
@@ -35,7 +50,7 @@ namespace Generator
                     this.CreationalPatternsList.Visibility = Visibility.Visible;
                 else
                     this.CreationalPatternsList.Visibility = Visibility.Collapsed;
-            }            
+            }
         }
 
         private void BehavioralPatternsToggleButton_Click(object sender, RoutedEventArgs e)
@@ -59,6 +74,7 @@ namespace Generator
                     this.StructuralPatternsList.Visibility = Visibility.Collapsed;
             }
         }
+        #endregion
 
         private void PatternChosed_Click(object sender, RoutedEventArgs e)
         {
@@ -201,7 +217,5 @@ namespace Generator
 
             p_home.Visibility = Visibility.Visible;
         }
-
-        #endregion       
     }
 }

@@ -40,7 +40,7 @@
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
       <Group guid="guidVSPackageCommandProjectContextMenuCmdSet" priority="0xFFFF" id="MyGroupForCommands">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
       </Group>
     </Groups>
 
@@ -69,6 +69,13 @@
           <ButtonText>Generator</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidGeneratorPackageCmdSet" id="cmdidMainWindowVSCommand" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Icon guid="guidImages2" id="bmpPic1" />
+        <Strings>
+          <ButtonText>MainWindowVS</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -80,11 +87,12 @@
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="guidImages" href="Resources\ToolCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
       <Bitmap guid="guidImages1" href="Resources\ProjectNodeCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages2" href="Resources\MainWindowVSCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="guidToolCommandPackageCmdSet" id="ToolCommandId" key1="2" mod1="CONTROL" editor="guidVSStd97"/>
+    <KeyBinding guid="guidToolCommandPackageCmdSet" id="ToolCommandId" key1="2" mod1="CONTROL" editor="guidVSStd97" />
   </KeyBindings>
 
   <Symbols>
@@ -113,6 +121,19 @@
     </GuidSymbol>
 
     <GuidSymbol value="{fd364521-481f-496c-b4d1-aac10eeb9ccf}" name="guidImages1">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{703fa373-e2fd-4e6a-9c4a-43c35c5e759b}" name="guidGeneratorPackageCmdSet">
+      <IDSymbol value="256" name="cmdidMainWindowVSCommand" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{59c3a8bd-44c4-4f89-9f26-7c90a3d46883}" name="guidImages2">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

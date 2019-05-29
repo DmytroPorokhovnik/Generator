@@ -37,6 +37,7 @@ namespace Generator
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GeneratorPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+    [ProvideToolWindow(typeof(MainWindowVS))]
     public sealed class GeneratorPackage : AsyncPackage
     {
         /// <summary>
@@ -71,6 +72,7 @@ namespace Generator
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await ToolCommand.InitializeAsync(this);
             await ProjectNodeCommand.InitializeAsync(this);
+            await MainWindowVSCommand.InitializeAsync(this);
         }
 
         #endregion
