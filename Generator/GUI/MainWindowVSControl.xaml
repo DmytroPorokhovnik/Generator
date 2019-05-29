@@ -131,8 +131,31 @@
                     </Grid>
                 </Border>
             </ScrollViewer>
-            <Grid Grid.Column="1" Width="Auto" Height="Auto">
+            <!--<Grid Grid.Column="1" Width="Auto" Height="Auto">
                 <Frame Visibility="Collapsed" Source="HomePage.xaml" Name="p_home"></Frame>
+            </Grid>-->
+
+            <Grid Grid.Column="1" Width="Auto" Height="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Label VerticalAlignment="Center" >File path:</Label>
+                        <TextBlock Name="filePathTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Label VerticalAlignment="Center" >File name:</Label>
+                        <TextBlock Name="fileNameTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Label VerticalAlignment="Center" >Generate to current position</Label>
+                        <CheckBox IsEnabled="{Binding Path=IsSomeFileOpened, ElementName=home}" VerticalAlignment="Center" x:Name="GenerateToCurrentPositionCheckBox"></CheckBox>
+                    </StackPanel>
+                </StackPanel>
             </Grid>
 
         </Grid>
