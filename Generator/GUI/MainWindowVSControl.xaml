@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="720" d:DesignWidth="880"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
-             mc:Ignorable="d" Name="MyToolWindow">
+             mc:Ignorable="d" x:Name="home">
     <UserControl.Resources>
 
         <ResourceDictionary>
@@ -16,7 +18,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Green.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+                <Setter Property="Margin" Value="0 8 0 8" />
+            </Style>
 
             <Style TargetType="Button" x:Key="PatternButtonStyle" BasedOn="{StaticResource MaterialDesignFlatButton}">
                 <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
@@ -35,7 +42,7 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}">
+            <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}" VerticalScrollBarVisibility="Auto">
                 <Border Grid.Column="0" SnapsToDevicePixels="True" Background ="#424242"  Name="MainMenuBorder">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -131,9 +138,56 @@
                     </Grid>
                 </Border>
             </ScrollViewer>
-            <Grid Grid.Column="1" Width="Auto" Height="Auto">
-                <Frame Visibility="Collapsed" Source="HomePage.xaml" Name="p_home"></Frame>
-            </Grid>
+
+            <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="p_home">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File path:</Label>
+                        <TextBox Style="{StaticResource MaterialDesignTextBox }" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Label  Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File name:</Label>
+                        <TextBox Style="{StaticResource MaterialDesignTextBox}" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Generate to current position</Label>
+                        <CheckBox IsEnabled="{Binding Path=IsSomeFileOpened, ElementName=home}" VerticalAlignment="Center"
+                                  Style="{StaticResource MaterialDesignCheckBox }" x:Name="GenerateToCurrentPositionCheckBox"></CheckBox>
+                    </StackPanel>
+                </StackPanel>
+
+                <ListView Grid.Row="1" Name="elementsList" Style="{StaticResource MaterialDesignListView }" BorderThickness="0.5" BorderBrush="DarkGray">
+                    <ListView.Resources>
+                    </ListView.Resources>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Focusable" Value="false"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Path=Member, Mode=TwoWay}"/>
+                                <TextBox Style="{StaticResource MaterialDesignTextBox}" Margin="2,0,0,0" Width="200" Grid.Column="1" Text="{Binding Path=MemberName, Mode=TwoWay}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
+            </Grid>         
 
         </Grid>
     </Grid>
