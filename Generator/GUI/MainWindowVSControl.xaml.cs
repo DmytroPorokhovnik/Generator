@@ -46,6 +46,14 @@
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
         }
 
+        private void Home_Loaded(object sender, RoutedEventArgs e)
+        {
+            PatternsElements = new ObservableCollection<PatternViewModel>();
+            elementsList.ItemsSource = PatternsElements;
+            FilePath = ExtensionHelper.GetCurrentProjectPath();
+            IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
+        }
+
         private static void PreloadDynamoCoreDlls()
         {
             
@@ -574,6 +582,6 @@
                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
-        }
+        }        
     }
 }
