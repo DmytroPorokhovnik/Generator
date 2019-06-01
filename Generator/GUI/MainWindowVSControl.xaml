@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="720" d:DesignWidth="880"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
@@ -16,7 +18,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Green.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+                <Setter Property="Margin" Value="0 8 0 8" />
+            </Style>
 
             <Style TargetType="Button" x:Key="PatternButtonStyle" BasedOn="{StaticResource MaterialDesignFlatButton}">
                 <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
@@ -131,9 +138,6 @@
                     </Grid>
                 </Border>
             </ScrollViewer>
-            <!--<Grid Grid.Column="1" Width="Auto" Height="Auto">
-                <Frame Visibility="Collapsed" Source="HomePage.xaml" Name="p_home"></Frame>
-            </Grid>-->
 
             <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="p_home">
                 <Grid.RowDefinitions>
@@ -145,11 +149,11 @@
                 <StackPanel Grid.Row="0">
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File path:</Label>
-                        <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
+                        <TextBox Style="{StaticResource MaterialDesignTextBox }" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label  Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File name:</Label>
-                        <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+                        <TextBox Style="{StaticResource MaterialDesignTextBox}" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Generate to current position</Label>
@@ -158,7 +162,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <ListView Grid.Row="1" Name="elementsList" Style="{StaticResource MaterialDesignListView }">
+                <ListView Grid.Row="1" Name="elementsList" Style="{StaticResource MaterialDesignListView }" BorderThickness="0.5" BorderBrush="DarkGray">
                     <ListView.Resources>
                     </ListView.Resources>
 
@@ -176,7 +180,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="{Binding Path=Member, Mode=TwoWay}"/>
-                                <TextBlock Margin="2,0,0,0" Width="200" Grid.Column="1" Text="{Binding Path=MemberName, Mode=TwoWay}"/>
+                                <TextBox Style="{StaticResource MaterialDesignTextBox}" Margin="2,0,0,0" Width="200" Grid.Column="1" Text="{Binding Path=MemberName, Mode=TwoWay}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

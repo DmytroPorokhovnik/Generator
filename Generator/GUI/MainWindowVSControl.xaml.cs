@@ -11,6 +11,8 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -34,13 +36,31 @@
         {
             var card = new Card();
             var hue = new Hue("Dummy", Colors.Black, Colors.White);
-
+            var formatter = new ShowMeTheXAML.XamlFormatter();
+            PreloadDynamoCoreDlls();
             this.InitializeComponent();
 
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
             FilePath = ExtensionHelper.GetCurrentProjectPath();
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
+        }
+
+        private static void PreloadDynamoCoreDlls()
+        {
+            
+            var assemblyList = new[]
+            {
+                "MaterialDesignThemes.Wpf.dll",
+                "MaterialDesignColors.dll"
+            };
+
+            foreach (var assembly in assemblyList)
+            {
+                var assemblyPath = Path.Combine(Directory.GetCurrentDirectory(), assembly);
+                if (File.Exists(assemblyPath))
+                    Assembly.LoadFrom(assemblyPath);
+            }
         }
 
         public string FileName
