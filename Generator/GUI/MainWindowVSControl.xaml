@@ -6,7 +6,7 @@
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="720" d:DesignWidth="880" Loaded="Home_Loaded"
+             d:DesignHeight="720" d:DesignWidth="880" Loaded="Home_Loaded" MinWidth="850"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d" x:Name="home">
@@ -149,11 +149,13 @@
                 <StackPanel Grid.Row="0">
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File path:</Label>
-                        <TextBox Style="{StaticResource MaterialDesignTextBox }" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
+                        <TextBox Style="{StaticResource MaterialDesignTextBox }" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center"
+                                 TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label  Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File name:</Label>
-                        <TextBox Style="{StaticResource MaterialDesignTextBox}" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center" TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+                        <TextBox Style="{StaticResource MaterialDesignTextBox}" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center"
+                                 TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Generate to current position</Label>
@@ -163,8 +165,6 @@
                 </StackPanel>
 
                 <ListView Grid.Row="1" Name="elementsList" Style="{StaticResource MaterialDesignListView }" BorderThickness="0.5" BorderBrush="DarkGray">
-                    <ListView.Resources>
-                    </ListView.Resources>
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -179,8 +179,9 @@
                                     <ColumnDefinition Width="200"></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Path=Member, Mode=TwoWay}"/>
-                                <TextBox Style="{StaticResource MaterialDesignTextBox}" Margin="2,0,0,0" Width="200" Grid.Column="1" Text="{Binding Path=MemberName, Mode=TwoWay}"/>
+                                <TextBlock Grid.Column="0" FontSize="12" Text="{Binding Path=Member, Mode=TwoWay}"/>
+                                <TextBox Style="{StaticResource MaterialDesignTextBox}" FontWeight="Bold" FontSize="12" TextWrapping="Wrap" BorderThickness="0" Margin="2,0,0,0"
+                                         Width="Auto" MaxWidth="400" MinWidth="200" Grid.Column="1" Text="{Binding Path=MemberName, Mode=TwoWay}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

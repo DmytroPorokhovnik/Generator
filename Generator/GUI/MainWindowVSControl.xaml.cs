@@ -34,9 +34,6 @@
         /// </summary>
         public MainWindowVSControl()
         {
-            var card = new Card();
-            var hue = new Hue("Dummy", Colors.Black, Colors.White);
-            var formatter = new ShowMeTheXAML.XamlFormatter();
             PreloadDynamoCoreDlls();
             this.InitializeComponent();
 
@@ -60,7 +57,8 @@
             var assemblyList = new[]
             {
                 "MaterialDesignThemes.Wpf.dll",
-                "MaterialDesignColors.dll"
+                "MaterialDesignColors.dll",
+                "ShowMeTheXAML.dll"
             };
 
             foreach (var assembly in assemblyList)

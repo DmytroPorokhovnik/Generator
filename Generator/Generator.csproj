@@ -55,12 +55,6 @@
     <Compile Include="Generation\GOFPatternGenerator.cs" />
     <Compile Include="Generation\Patterns.cs" />
     <Compile Include="GUI\BoolToVisibilityConverter.cs" />
-    <Compile Include="GUI\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Commands\ProjectNodeCommand.cs" />
     <Compile Include="GUI\PatternViewModel.cs" />
     <Compile Include="MainWindowVS.cs" />
@@ -166,14 +160,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GUI\HomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\MainWindowVSControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
