@@ -56,6 +56,7 @@
     <Compile Include="Generation\Patterns.cs" />
     <Compile Include="GUI\BoolToVisibilityConverter.cs" />
     <Compile Include="Commands\ProjectNodeCommand.cs" />
+    <Compile Include="GUI\MemberNameValidationRule.cs" />
     <Compile Include="GUI\PatternViewModel.cs" />
     <Compile Include="MainWindowVS.cs" />
     <Compile Include="Commands\MainWindowVSCommand.cs" />
