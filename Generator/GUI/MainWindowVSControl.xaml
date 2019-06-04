@@ -36,169 +36,173 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}" VerticalScrollBarVisibility="Auto">
-                <Border Grid.Column="0" SnapsToDevicePixels="True" Background ="#424242"  Name="MainMenuBorder">
-                    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!--SIDEBAR MENU-->
+        <ScrollViewer Style="{DynamicResource MaterialDesignScrollViewer}" VerticalScrollBarVisibility="Auto">
+            <Border Grid.Column="0" SnapsToDevicePixels="True" Background ="#424242"  Name="MainMenuBorder">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
-                                <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ToggleButton Name ="CreationalPatternsToggleButton" ClickMode="Press" Height="19" Width="12"  
+                        <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
+                            <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ToggleButton Name ="CreationalPatternsToggleButton" ClickMode="Press" Height="19" Width="12"  
                                               Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Click="CreationalPatternsToggleButton_Click">
-                                    </ToggleButton>
-                                </Border>
-                                <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
-                                    <TextBlock>Creational Patterns</TextBlock>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="CreationalPatternsList">
-                                <Button Style="{DynamicResource PatternButtonStyle}">Abstract factory</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Builder</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Factory method</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Prototype</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Singleton</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Lazy Singleton</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Multithreaded Singleton</Button>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
-                                <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ToggleButton Name ="StructuralPatternsToggleButton" ClickMode="Press" Height="19" Width="12"  
-                                              Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Click="StructuralPatternsToggleButton_Click">
-                                    </ToggleButton>
-                                </Border>
-                                <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
-                                    <TextBlock>Structural Patterns</TextBlock>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="StructuralPatternsList">
-                                <Button Style="{DynamicResource PatternButtonStyle}">Object Adapter</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Class Adapter</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Bridge</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Composite</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Decorator</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Facade</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Flyweight</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Proxy</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Proxy CRUD</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Proxy Ambassador</Button>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
-                                <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ToggleButton Name ="BehavioralPatternsToggleButton" ClickMode="Press" Height="19" Width="12"
-                                              Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Click="BehavioralPatternsToggleButton_Click">
-                                    </ToggleButton>
-                                </Border>
-                                <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
-                                    <TextBlock>Behavioral Patterns</TextBlock>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="BehavioralPatternsList">
-                                <Button Style="{DynamicResource PatternButtonStyle}">Chain of responsibility</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Command</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Iterator</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">.Net Iterator</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Yield Iterator</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Mediator</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Memento</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Observer</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Observer Event</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Observer(.NET interfaces)</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">State</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Strategy</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Template method</Button>
-                                <Button Style="{DynamicResource PatternButtonStyle}">Visitor</Button>
-                            </StackPanel>
-                        </Grid>
+                                </ToggleButton>
+                            </Border>
+                            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock>Creational Patterns</TextBlock>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="CreationalPatternsList">
+                            <Button Style="{DynamicResource PatternButtonStyle}">Abstract factory</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Builder</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Factory method</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Prototype</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Singleton</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Lazy Singleton</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Multithreaded Singleton</Button>
+                        </StackPanel>
                     </Grid>
-                </Border>
-            </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
+                            <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ToggleButton Name ="StructuralPatternsToggleButton" ClickMode="Press" Height="19" Width="12"  
+                                              Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Click="StructuralPatternsToggleButton_Click">
+                                </ToggleButton>
+                            </Border>
+                            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock>Structural Patterns</TextBlock>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="StructuralPatternsList">
+                            <Button Style="{DynamicResource PatternButtonStyle}">Object Adapter</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Class Adapter</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Bridge</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Composite</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Decorator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Facade</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Flyweight</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Proxy</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Proxy CRUD</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Proxy Ambassador</Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="5,0,0,0" Orientation="Horizontal">
+                            <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ToggleButton Name ="BehavioralPatternsToggleButton" ClickMode="Press" Height="19" Width="12"
+                                              Style="{DynamicResource MaterialDesignHamburgerToggleButton}" Click="BehavioralPatternsToggleButton_Click">
+                                </ToggleButton>
+                            </Border>
+                            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <TextBlock>Behavioral Patterns</TextBlock>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Visibility ="Collapsed" Name="BehavioralPatternsList">
+                            <Button Style="{DynamicResource PatternButtonStyle}">Chain of responsibility</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Command</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Iterator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">.Net Iterator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Yield Iterator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Mediator</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Memento</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Observer</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Observer Event</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Observer(.NET interfaces)</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">State</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Strategy</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Template method</Button>
+                            <Button Style="{DynamicResource PatternButtonStyle}">Visitor</Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </ScrollViewer>
+        <!--END SIDEBAR MENU-->
 
-            <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="p_home">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
+        <!--WORK AREA NEW GENERATION-->
+        <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="newGenerationPage">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0">
-                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
-                        <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File path:</Label>
-                        <TextBox Style="{StaticResource MaterialDesignTextBox }" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center"
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File path:</Label>
+                    <TextBox Style="{StaticResource MaterialDesignTextBox }" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="filePathTextBox" VerticalAlignment="Center"
                                  TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FilePath, ElementName=home}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
-                        <Label  Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File name:</Label>
-                        <TextBox Style="{StaticResource MaterialDesignTextBox}" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center"
-                                 TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
-                        <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Generate to current position</Label>
-                        <CheckBox IsEnabled="{Binding Path=IsSomeFileOpened, ElementName=home}" VerticalAlignment="Center"
-                                  Style="{StaticResource MaterialDesignCheckBox }" x:Name="GenerateToCurrentPositionCheckBox"></CheckBox>
-                    </StackPanel>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Label  Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File name:</Label>
+                    <TextBox Style="{StaticResource MaterialDesignTextBox}" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center"
+                                 TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Generate to current position</Label>
+                    <CheckBox IsEnabled="{Binding Path=IsSomeFileOpened, ElementName=home}" VerticalAlignment="Center"
+                                  Style="{StaticResource MaterialDesignCheckBox }" x:Name="GenerateToCurrentPositionCheckBox"></CheckBox>
+                </StackPanel>
+            </StackPanel>
 
-                <ListView Grid.Row="1" Name="elementsList" Style="{StaticResource MaterialDesignListView }" BorderThickness="0.5" BorderBrush="DarkGray">
+            <ListView Grid.Row="1" Name="elementsList" Style="{StaticResource MaterialDesignListView }" BorderThickness="0.5" BorderBrush="DarkGray">
 
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Focusable" Value="false"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Focusable" Value="false"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" FontSize="12" Text="{Binding Path=Member, Mode=TwoWay}"/>
-                                <TextBox Style="{StaticResource MaterialDesignTextBox}" FontWeight="Bold" FontSize="12" TextWrapping="Wrap" BorderThickness="0" Margin="2,0,0,5"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontSize="12" Text="{Binding Path=Member, Mode=TwoWay}"/>
+                            <TextBox Style="{StaticResource MaterialDesignTextBox}" FontWeight="Bold" FontSize="12" TextWrapping="Wrap" BorderThickness="0" Margin="2,0,0,5"
                                          Width="Auto" MaxWidth="400" MinWidth="200" Grid.Column="1">
-                                    <TextBox.Text>
-                                        <Binding Path="MemberName" Mode="TwoWay">
-                                            <Binding.ValidationRules>
-                                                <gui:MemberNameValidationRule/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                <TextBox.Text>
+                                    <Binding Path="MemberName" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <gui:MemberNameValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-                <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
-            </Grid>         
-
+            <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
+        </Grid>
+        <!--END WORK AREA NEW GENERATION-->
+        
+        <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="ChoicePage">
         </Grid>
     </Grid>
 </UserControl>

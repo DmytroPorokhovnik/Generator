@@ -1,20 +1,28 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Analyser
 {
     public class SolutionAnalyser
     {
-        public void AnalyseProject(string projectPath)
+        public async Task<List<string>> GetClassesFromProject(string projectPath)
         {
             MSBuildWorkspace workspace = MSBuildWorkspace.Create();
-            Project currProject = workspace.OpenProjectAsync(projectPath)
+            Project project = workspace.OpenProjectAsync(projectPath)
                                            .Result;
+            var compilatedProject = await project.GetCompilationAsync();
+            var classVisitor = new ClassVirtualizationVisitor();
+            foreach (var syntaxTree in compilatedProject.SyntaxTrees)
+            {
+                classVisitor.Visit(syntaxTree.GetRoot());
+            }
+            List<string> classesNames = new List<string>();
+            foreach (var @class in classVisitor.Classes)
+                classesNames.Add(@class.Identifier.ValueText);
+            return classesNames;
         }
     }
 }

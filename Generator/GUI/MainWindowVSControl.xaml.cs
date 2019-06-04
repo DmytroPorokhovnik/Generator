@@ -36,27 +36,21 @@
         /// </summary>
         public MainWindowVSControl()
         {
-            PreloadDynamoCoreDlls();
-            this.InitializeComponent();
-
-            PatternsElements = new ObservableCollection<PatternViewModel>();
-            elementsList.ItemsSource = PatternsElements;
-            FilePath = ExtensionHelper.GetCurrentFilePath();
-            IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
-
-            var analyser = new SolutionAnalyser();
-            analyser.AnalyseProject(ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE).FullName);
+            PreloadMetiralDesignDlls();
+            this.InitializeComponent();            
         }
 
-        private void Home_Loaded(object sender, RoutedEventArgs e)
+        private async void Home_Loaded(object sender, RoutedEventArgs e)
         {
+            var analyser = new SolutionAnalyser();
+            var allClassesNames = await analyser.GetClassesFromProject(ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE).FullName);
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
             FilePath = ExtensionHelper.GetCurrentFilePath();
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
         }
 
-        private static void PreloadDynamoCoreDlls()
+        private static void PreloadMetiralDesignDlls()
         {
             
             var assemblyList = new[]
@@ -548,7 +542,7 @@
 
 
             }
-            p_home.Visibility = Visibility.Visible;
+            newGenerationPage.Visibility = Visibility.Visible;
         }
 
         private async void Generate_Click(object sender, RoutedEventArgs e)
