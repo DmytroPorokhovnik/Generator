@@ -88,16 +88,26 @@ namespace Generator
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            ToolWindowPane window = this.package.FindToolWindow(typeof(MainWindowVS), 0, true);
-            if ((null == window) || (null == window.Frame))
+            try
             {
-                throw new NotSupportedException("Cannot create tool window");
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
 
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+                ToolWindowPane window = this.package.FindToolWindow(typeof(MainWindowVS), 0, true);
+                if ((null == window) || (null == window.Frame))
+                {
+                    throw new NotSupportedException("Cannot create tool window");
+                }
+
+                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            }
+            catch(Exception ex)
+            {
+                VsShellUtilities.ShowMessageBox(Microsoft.VisualStudio.Shell.ServiceProvider.GlobalProvider,
+                  ex.Message,
+                  "Generator Error", OLEMSGICON.OLEMSGICON_CRITICAL, OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                  OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            }
         }
     }
 }
