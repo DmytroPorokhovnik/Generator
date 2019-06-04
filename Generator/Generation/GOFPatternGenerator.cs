@@ -299,7 +299,7 @@ namespace Generator.Generation
 
         public string GetCurrentProjectPath()
         {
-            return ExtensionHelper.GetCurrentProjectPath();
+            return ExtensionHelper.GetCurrentFilePath();
         }
 
         #endregion

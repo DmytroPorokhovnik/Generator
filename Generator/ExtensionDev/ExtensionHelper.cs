@@ -25,7 +25,7 @@ namespace Generator.ExtensionDeb
             return activeProject;
         }
 
-        internal static string GetCurrentProjectPath()
+        internal static string GetCurrentFilePath()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var proj = GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE);

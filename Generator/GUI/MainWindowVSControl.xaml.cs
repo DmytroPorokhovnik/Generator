@@ -1,5 +1,7 @@
 ﻿namespace Generator
 {
+    using Analyser;
+    using EnvDTE;
     using Generator.ExtensionDeb;
     using Generator.Generation;
     using Generator.GUI;
@@ -39,15 +41,18 @@
 
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
-            FilePath = ExtensionHelper.GetCurrentProjectPath();
+            FilePath = ExtensionHelper.GetCurrentFilePath();
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
+
+            var analyser = new SolutionAnalyser();
+            analyser.AnalyseProject(ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE).FullName);
         }
 
         private void Home_Loaded(object sender, RoutedEventArgs e)
         {
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
-            FilePath = ExtensionHelper.GetCurrentProjectPath();
+            FilePath = ExtensionHelper.GetCurrentFilePath();
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
         }
 
