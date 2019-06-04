@@ -201,7 +201,8 @@
             <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
         </Grid>
         <!--END WORK AREA NEW GENERATION-->
-
+        
+        <!--CHOICE AREA-->
         <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="ChoicePage">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -218,5 +219,16 @@
             </StackPanel>
             <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Method_Chosed">Next</Button>
         </Grid>
+        <!--END CHOICE AREA-->
+        
+        <!--WORK AREA INTEGRATION-->
+        <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="integratedGenerationPage">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
+        <!--END WORK AREA INTEGRATION-->
     </Grid>
 </UserControl>

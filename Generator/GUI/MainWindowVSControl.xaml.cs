@@ -407,6 +407,7 @@
         private void PatternChosed_Click(object sender, RoutedEventArgs e)
         {
             newGenerationPage.Visibility = Visibility.Collapsed;
+            integratedGenerationPage.Visibility = Visibility.Collapsed;
             ChoicePage.Visibility = Visibility.Visible;
             var button = sender as Button;
             switch (button.Content)
@@ -555,6 +556,8 @@
             InitializePatternEditor(CurrentPattern);
             if(AddToProjectRadioButton.IsChecked ?? false)
                 newGenerationPage.Visibility = Visibility.Visible;
+            else
+                integratedGenerationPage.Visibility = Visibility.Visible;
         }
     }
 }
