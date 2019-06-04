@@ -201,8 +201,22 @@
             <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Generate_Click">Generate</Button>
         </Grid>
         <!--END WORK AREA NEW GENERATION-->
-        
+
         <Grid Grid.Column="1" Width="Auto" Height="Auto" Visibility="Collapsed" x:Name="ChoicePage">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Please, choose generation method:</TextBlock>
+                <StackPanel>
+                    <RadioButton GroupName="generationMethod" Name="AddToProjectRadioButton"  IsChecked="True" Style="{StaticResource MaterialDesignRadioButton}">Add to project</RadioButton>
+                    <RadioButton GroupName="generationMethod" IsChecked="False" Style="{StaticResource MaterialDesignRadioButton}">Intergrate to project</RadioButton>                   
+                </StackPanel>
+            </StackPanel>
+            <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="Method_Chosed">Next</Button>
         </Grid>
     </Grid>
 </UserControl>

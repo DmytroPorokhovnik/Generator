@@ -37,13 +37,13 @@
         public MainWindowVSControl()
         {
             PreloadMetiralDesignDlls();
-            this.InitializeComponent();            
+            this.InitializeComponent();
         }
 
         private async void Home_Loaded(object sender, RoutedEventArgs e)
         {
-            var analyser = new SolutionAnalyser();
-            var allClassesNames = await analyser.GetClassesFromProject(ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE).FullName);
+            //var analyser = new SolutionAnalyser();
+            //var allClassesNames = await analyser.GetClassesFromProject(ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE).FullName);
             PatternsElements = new ObservableCollection<PatternViewModel>();
             elementsList.ItemsSource = PatternsElements;
             FilePath = ExtensionHelper.GetCurrentFilePath();
@@ -52,7 +52,7 @@
 
         private static void PreloadMetiralDesignDlls()
         {
-            
+
             var assemblyList = new[]
             {
                 "MaterialDesignThemes.Wpf.dll",
@@ -94,7 +94,7 @@
                 if (string.IsNullOrEmpty(value))
                 {
                     filePathTextBox.Text = "There is no open project";
-                }                
+                }
             }
         }
 
@@ -406,143 +406,111 @@
 
         private void PatternChosed_Click(object sender, RoutedEventArgs e)
         {
+            newGenerationPage.Visibility = Visibility.Collapsed;
+            ChoicePage.Visibility = Visibility.Visible;
             var button = sender as Button;
             switch (button.Content)
             {
                 #region Creational
                 case "Abstract factory":
                     CurrentPattern = Patterns.AbstractFactory;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Builder":
                     CurrentPattern = Patterns.Builder;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Factory method":
                     CurrentPattern = Patterns.FactoryMethod;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Prototype":
                     CurrentPattern = Patterns.Prototype;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Singleton":
                     CurrentPattern = Patterns.Singleton;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Lazy Singleton":
                     CurrentPattern = Patterns.LazySingleton;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Multithreaded Singleton":
                     CurrentPattern = Patterns.MultiThreadedSingleton;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 #endregion
                 #region Structural
                 case "Class Adapter":
                     CurrentPattern = Patterns.ClassAdapter;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Object Adapter":
                     CurrentPattern = Patterns.ObjectAdapter;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Bridge":
                     CurrentPattern = Patterns.Bridge;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Composite":
                     CurrentPattern = Patterns.Composite;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Decorator":
                     CurrentPattern = Patterns.Decorator;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Facade":
                     CurrentPattern = Patterns.Facade;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Flyweight":
                     CurrentPattern = Patterns.Flyweight;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Proxy":
                     CurrentPattern = Patterns.Proxy;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Proxy CRUD":
                     CurrentPattern = Patterns.ProxyCrud;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Proxy Ambassador":
                     CurrentPattern = Patterns.ProxyAmbassador;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 #endregion
                 #region Behavioral
                 case "Chain of responsibility":
                     CurrentPattern = Patterns.ChainOfResponsibility;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Command":
-                    CurrentPattern = Patterns.Command;
-                    InitializePatternEditor(CurrentPattern);
+                   CurrentPattern = Patterns.Command;
                     break;
                 case "Iterator":
                     CurrentPattern = Patterns.Iterator;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case ".Net Iterator":
                     CurrentPattern = Patterns.IteratorNET;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Yield Iterator":
                     CurrentPattern = Patterns.YieldIterator;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Mediator":
                     CurrentPattern = Patterns.Mediator;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Memento":
                     CurrentPattern = Patterns.Memento;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Observer":
                     CurrentPattern = Patterns.Observer;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Observer Event":
                     CurrentPattern = Patterns.ObserverEvent;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Observer(.NET interfaces)":
                     CurrentPattern = Patterns.ObserverNET;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "State":
                     CurrentPattern = Patterns.State;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Strategy":
                     CurrentPattern = Patterns.Strategy;
-                    InitializePatternEditor(CurrentPattern);
-                    break;
+                   break;
                 case "Template method":
                     CurrentPattern = Patterns.TemplateMethod;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                 case "Visitor":
                     CurrentPattern = Patterns.Visitor;
-                    InitializePatternEditor(CurrentPattern);
                     break;
                     #endregion
-
-
             }
-            newGenerationPage.Visibility = Visibility.Visible;
         }
 
         private async void Generate_Click(object sender, RoutedEventArgs e)
@@ -579,6 +547,14 @@
                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
-        }        
+        }
+
+        private void Method_Chosed(object sender, RoutedEventArgs e)
+        {           
+            ChoicePage.Visibility = Visibility.Collapsed;
+            InitializePatternEditor(CurrentPattern);
+            if(AddToProjectRadioButton.IsChecked ?? false)
+                newGenerationPage.Visibility = Visibility.Visible;
+        }
     }
 }
