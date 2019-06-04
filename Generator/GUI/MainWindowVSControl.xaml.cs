@@ -14,6 +14,7 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -33,7 +34,7 @@
             set
             {
                 currentPattern = value;
-                CurrentPatternName = value.ToString();
+                CurrentPatternName = string.Concat(value.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
             }
         }
         private static DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(MainWindowVSControl));
@@ -61,10 +62,13 @@
             elementsList.ItemsSource = PatternsElements;
             integratedElementsList.ItemsSource = IntegratedPatternElements;
             FilePath = ExtensionHelper.GetCurrentFilePath();
-            SelectedProject = currentProject.Name;
+            if(currentProject != null)
+                SelectedProject = currentProject.Name;
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
             var analyser = new SolutionAnalyser();
-            var allClassesNames = await analyser.GetClassesFromProject(currentProject.FullName);
+            List<string> allClassesNames = new List<string>();
+            if (currentProject != null)
+                 allClassesNames = await analyser.GetClassesFromProject(currentProject.FullName);
         }
 
         private static void PreloadMetiralDesignDlls()
@@ -227,7 +231,7 @@
                     PatternsElements.Add(new PatternViewModel("Singleton Class Name", "LazySingleton"));
                     PatternsElements.Add(new PatternViewModel("Instance Property Name", "Instance"));
                     break;
-                case Patterns.MultiThreadedSingleton:
+                case Patterns.MultithreadedSingleton:
                     PatternsElements.Add(new PatternViewModel("Singleton Class Name", "MultiThreadedSingleton"));
                     PatternsElements.Add(new PatternViewModel("Instance Property Name", "Instance"));
                     break;
@@ -351,7 +355,7 @@
                     PatternsElements.Add(new PatternViewModel("IsDone Property Name", "IsDone"));
                     PatternsElements.Add(new PatternViewModel("CurrentItem Property Name", "CurrentItem"));
                     break;
-                case Patterns.IteratorNET:
+                case Patterns.DotNetIterator:
                     PatternsElements.Add(new PatternViewModel("Iterator Class Name", "Enumerator"));
                     PatternsElements.Add(new PatternViewModel("Aggregate Class Name", "Enumerable"));
                     break;
@@ -393,7 +397,7 @@
                     PatternsElements.Add(new PatternViewModel("State Property Name", "State"));
                     PatternsElements.Add(new PatternViewModel("Event Property Name", "Event"));
                     break;
-                case Patterns.ObserverNET:
+                case Patterns.DotNetObserver:
                     PatternsElements.Add(new PatternViewModel("Observer Class Name", "ConcreteObserver"));
                     PatternsElements.Add(new PatternViewModel("ConcreteSubject Class Name", "ConcreteSubject"));
                     PatternsElements.Add(new PatternViewModel("Unsubscriber Class Name", "Unsubscriber"));
@@ -482,7 +486,7 @@
                     CurrentPattern = Patterns.LazySingleton;
                     break;
                 case "Multithreaded Singleton":
-                    CurrentPattern = Patterns.MultiThreadedSingleton;
+                    CurrentPattern = Patterns.MultithreadedSingleton;
                     break;
                 #endregion
                 #region Structural
@@ -528,7 +532,7 @@
                     CurrentPattern = Patterns.Iterator;
                     break;
                 case ".Net Iterator":
-                    CurrentPattern = Patterns.IteratorNET;
+                    CurrentPattern = Patterns.DotNetIterator;
                     break;
                 case "Yield Iterator":
                     CurrentPattern = Patterns.YieldIterator;
@@ -546,7 +550,7 @@
                     CurrentPattern = Patterns.ObserverEvent;
                     break;
                 case "Observer(.NET interfaces)":
-                    CurrentPattern = Patterns.ObserverNET;
+                    CurrentPattern = Patterns.DotNetObserver;
                     break;
                 case "State":
                     CurrentPattern = Patterns.State;

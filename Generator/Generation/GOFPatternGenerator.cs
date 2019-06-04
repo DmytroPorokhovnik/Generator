@@ -344,7 +344,7 @@ namespace Generator.Generation
                     else
                         return generatedPattern;
                     break;
-                case Patterns.MultiThreadedSingleton:
+                case Patterns.MultithreadedSingleton:
                     if (patternArguments.Count == 2)
                         generatedPattern = MultiThreadedSingleton(patternArguments[0], patternArguments[1]);
                     else
@@ -427,7 +427,7 @@ namespace Generator.Generation
                     else
                         return generatedPattern;
                     break;
-                case Patterns.IteratorNET:
+                case Patterns.DotNetIterator:
                     if (patternArguments.Count == 2)
                         generatedPattern = IteratorNET(patternArguments[0], patternArguments[1]);
                     else
@@ -473,7 +473,7 @@ namespace Generator.Generation
                     else
                         return generatedPattern;
                     break;
-                case Patterns.ObserverNET:
+                case Patterns.DotNetObserver:
                     if (patternArguments.Count == 5)
                         generatedPattern = ObserverNET(patternArguments[0], patternArguments[1], patternArguments[2], patternArguments[3],
                             patternArguments[4]);

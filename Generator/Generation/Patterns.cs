@@ -8,8 +8,8 @@ namespace Generator.Generation
 {
     public enum Patterns
     {
-        AbstractFactory, FactoryMethod, Singleton, Prototype, Builder, MultiThreadedSingleton, LazySingleton,
+        AbstractFactory, FactoryMethod, Singleton, Prototype, Builder, MultithreadedSingleton, LazySingleton,
         Bridge, ObjectAdapter, ClassAdapter, Decorator, Facade, Composite, Flyweight, Proxy, ProxyAmbassador, ProxyCrud,
-        ChainOfResponsibility, Interpreter, Iterator, IteratorNET, YieldIterator, Command, Mediator, Memento, Observer, ObserverEvent, ObserverNET, State, Strategy, Visitor, TemplateMethod
+        ChainOfResponsibility, Interpreter, Iterator, DotNetIterator, YieldIterator, Command, Mediator, Memento, Observer, ObserverEvent, DotNetObserver, State, Strategy, Visitor, TemplateMethod
     }
 }
