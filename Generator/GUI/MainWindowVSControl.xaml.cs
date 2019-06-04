@@ -25,29 +25,46 @@
     /// </summary>
     public partial class MainWindowVSControl : UserControl
     {
-        public Patterns CurrentPattern { get; set; }
+        private Patterns currentPattern;
+
+        public Patterns CurrentPattern
+        {
+            get { return currentPattern; }
+            set
+            {
+                currentPattern = value;
+                CurrentPatternName = value.ToString();
+            }
+        }
         private static DependencyProperty FilePathProperty = DependencyProperty.Register("FilePath", typeof(string), typeof(MainWindowVSControl));
+        private static DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(string), typeof(MainWindowVSControl));
         private static DependencyProperty FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(MainWindowVSControl));
         private static DependencyProperty IsSomeFileOpenedProperty = DependencyProperty.Register("IsSomeFileOpened", typeof(bool), typeof(MainWindowVSControl));
+        private static DependencyProperty CurrentPatternProperty = DependencyProperty.Register("CurrentPatternName", typeof(string), typeof(MainWindowVSControl));
         private ObservableCollection<PatternViewModel> PatternsElements { get; set; }
+        private ObservableCollection<string> IntegratedPatternElements { get; set; }
         private readonly GOFPatternGenerator gofGenerator = new GOFPatternGenerator();
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowVSControl"/> class.
         /// </summary>
         public MainWindowVSControl()
         {
+            PatternsElements = new ObservableCollection<PatternViewModel>();
+            IntegratedPatternElements = new ObservableCollection<string>();
             PreloadMetiralDesignDlls();
             this.InitializeComponent();
         }
 
         private async void Home_Loaded(object sender, RoutedEventArgs e)
         {
-            //var analyser = new SolutionAnalyser();
-            //var allClassesNames = await analyser.GetClassesFromProject(ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE).FullName);
-            PatternsElements = new ObservableCollection<PatternViewModel>();
+            var currentProject = ExtensionHelper.GetActiveProject(Package.GetGlobalService(typeof(SDTE)) as DTE);
             elementsList.ItemsSource = PatternsElements;
+            integratedElementsList.ItemsSource = IntegratedPatternElements;
             FilePath = ExtensionHelper.GetCurrentFilePath();
+            SelectedProject = currentProject.Name;
             IsSomeFileOpened = !string.IsNullOrEmpty(ExtensionHelper.GetActiveDocumentPath());
+            var analyser = new SolutionAnalyser();
+            var allClassesNames = await analyser.GetClassesFromProject(currentProject.FullName);
         }
 
         private static void PreloadMetiralDesignDlls()
@@ -76,6 +93,15 @@
                 this.SetValue(FileNameProperty, value);
             }
         }
+
+        public string CurrentPatternName
+        {
+            get { return (string)this.GetValue(CurrentPatternProperty); }
+            set
+            {
+                this.SetValue(CurrentPatternProperty, value);
+            }
+        }
         public bool IsSomeFileOpened
         {
             get { return (bool)this.GetValue(IsSomeFileOpenedProperty); }
@@ -91,6 +117,19 @@
             set
             {
                 this.SetValue(FilePathProperty, value);
+                if (string.IsNullOrEmpty(value))
+                {
+                    filePathTextBox.Text = "There is no open project";
+                }
+            }
+        }
+
+        public string SelectedProject
+        {
+            get { return (string)this.GetValue(SelectedProjectProperty); }
+            set
+            {
+                this.SetValue(SelectedProjectProperty, value);
                 if (string.IsNullOrEmpty(value))
                 {
                     filePathTextBox.Text = "There is no open project";
@@ -402,6 +441,17 @@
                     #endregion
             }
         }
+
+        public void InitializeIntegratedPatternEditor()
+        {
+            IntegratedPatternElements.Clear();
+            switch (CurrentPattern)
+            {
+                case Patterns.Singleton:
+                    IntegratedPatternElements.Add("Singleton Class Name");
+                    break;
+            }
+        }
         #endregion
 
         private void PatternChosed_Click(object sender, RoutedEventArgs e)
@@ -472,7 +522,7 @@
                     CurrentPattern = Patterns.ChainOfResponsibility;
                     break;
                 case "Command":
-                   CurrentPattern = Patterns.Command;
+                    CurrentPattern = Patterns.Command;
                     break;
                 case "Iterator":
                     CurrentPattern = Patterns.Iterator;
@@ -503,7 +553,7 @@
                     break;
                 case "Strategy":
                     CurrentPattern = Patterns.Strategy;
-                   break;
+                    break;
                 case "Template method":
                     CurrentPattern = Patterns.TemplateMethod;
                     break;
@@ -551,13 +601,24 @@
         }
 
         private void Method_Chosed(object sender, RoutedEventArgs e)
-        {           
+        {
             ChoicePage.Visibility = Visibility.Collapsed;
-            InitializePatternEditor(CurrentPattern);
-            if(AddToProjectRadioButton.IsChecked ?? false)
+
+            if (AddToProjectRadioButton.IsChecked ?? false)
+            {
+                InitializePatternEditor(CurrentPattern);
                 newGenerationPage.Visibility = Visibility.Visible;
+            }
             else
+            {
                 integratedGenerationPage.Visibility = Visibility.Visible;
+                InitializeIntegratedPatternEditor();
+            }
+        }
+
+        private void IntegratedGenerate_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

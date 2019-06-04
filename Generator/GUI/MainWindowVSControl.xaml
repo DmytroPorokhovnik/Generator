@@ -211,7 +211,12 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">Please, choose generation method:</TextBlock>
+                <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">                    
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}Please, choose generation method for {0}:">
+                            <Binding Path="CurrentPatternName" ElementName="home"/>
+                        </MultiBinding>
+                    </TextBlock.Text></TextBlock>
                 <StackPanel>
                     <RadioButton GroupName="generationMethod" Name="AddToProjectRadioButton"  IsChecked="True" Style="{StaticResource MaterialDesignRadioButton}">Add to project</RadioButton>
                     <RadioButton GroupName="generationMethod" IsChecked="False" Style="{StaticResource MaterialDesignRadioButton}">Intergrate to project</RadioButton>                   
@@ -228,6 +233,51 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Project:</Label>
+                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock }" FontWeight="Bold" FontSize="12" Name="ProjectTextBlock" VerticalAlignment="Center"
+                                 TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=SelectedProject, ElementName=home}"/>
+                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Label  Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >File name:</Label>
+                    <TextBox Style="{StaticResource MaterialDesignTextBox}" BorderThickness="0" FontWeight="Bold" FontSize="12" Name="fileNameTextBox" VerticalAlignment="Center"
+                                 TextWrapping="Wrap" Height="Auto" Width="Auto" MaxWidth ="445" Text="{Binding Path=FileName, ElementName=home}"/>
+                </StackPanel>-->
+                <!--<StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Label Style="{StaticResource MaterialDesignLabel}" VerticalAlignment="Center" >Generate to current position</Label>
+                    <CheckBox IsEnabled="{Binding Path=IsSomeFileOpened, ElementName=home}" VerticalAlignment="Center"
+                                  Style="{StaticResource MaterialDesignCheckBox }" x:Name="GenerateToCurrentPositionCheckBox"></CheckBox>
+                </StackPanel>-->
+            </StackPanel>
+
+            <ListView Grid.Row="1" Name="integratedElementsList" Style="{StaticResource MaterialDesignListView }" BorderThickness="0.5" BorderBrush="DarkGray">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Focusable" Value="false"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontSize="12" Text="{Binding}"/>
+                            <ComboBox Style="{StaticResource MaterialDesignDataGridComboBox}" FontWeight="Bold"  FontSize="12" IsTextSearchEnabled="True" BorderThickness="0" Margin="2,0,0,5"
+                                         Width="Auto" MaxWidth="400" MinWidth="200" Grid.Column="1">
+                                <ComboBoxItem>HELLLO</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" Padding="5" Click="IntegratedGenerate_Click">Generate</Button>
         </Grid>
         <!--END WORK AREA INTEGRATION-->
     </Grid>
